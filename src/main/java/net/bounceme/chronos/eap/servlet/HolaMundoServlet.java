@@ -41,4 +41,20 @@ public class HolaMundoServlet extends HttpServlet {
             out.close();
         }
     }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
+        
+        String nombre = request.getParameter("nombre");
+        if (nombre == null) {
+            nombre = "Visitante";
+        }
+        
+        String mensaje = servicio.getSaludoPersonalizado(nombre);
+        out.println("{\"mensaje\": \"" + mensaje + "\", \"metodo\": \"POST\"}");
+    }
 }
