@@ -19,14 +19,12 @@
         <dependency>
             <groupId>net.bounceme.chronos</groupId>
             <artifactId>jboss-eap-example-common-module</artifactId>
-            <version>${version.common}</version>
             <scope>provided</scope>
         </dependency>
         
         <dependency>
             <groupId>net.bounceme.chronos</groupId>
             <artifactId>jboss-eap-example-ejb-module</artifactId>
-            <version>${version.ejb}</version>
             <scope>provided</scope>
             <type>ejb</type>
         </dependency>
