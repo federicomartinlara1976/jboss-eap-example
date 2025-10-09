@@ -105,15 +105,5 @@
                 </p:panelGrid>
             </p:card>
         </div>
-
-        <!-- Script corregido sin f:verbatim -->
-        <h:outputScript>
-            // Usando PrimeFaces widgetVar para focus
-            $(document).ready(function() {
-                if (PF('nombreWidget')) {
-                    PF('nombreWidget').focus();
-                }
-            });
-        </h:outputScript>
     </h:body>
 </html>
