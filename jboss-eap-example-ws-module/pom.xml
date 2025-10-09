@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>net.bounceme.chronos</groupId>
+        <artifactId>jboss-eap-example</artifactId>
+        <version>2.0.0</version>
+    </parent>
+    
+    <artifactId>jboss-eap-example-ws-module</artifactId>
+    <packaging>war</packaging>
+    
+    <dependencies>
+        <dependency>
+            <groupId>net.bounceme.chronos</groupId>
+            <artifactId>jboss-eap-example-common-module</artifactId>
+            <version>${version.common}</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>net.bounceme.chronos</groupId>
+            <artifactId>jboss-eap-example-ejb-module</artifactId>
+            <version>${version.ejb}</version>
+            <scope>provided</scope>
+            <type>ejb</type>
+        </dependency>
+        
+        <!-- Web Services -->
+        <dependency>
+            <groupId>jakarta.xml.ws</groupId>
+            <artifactId>jakarta.xml.ws-api</artifactId>
+            <version>4.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>
