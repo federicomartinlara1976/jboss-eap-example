@@ -20,35 +20,30 @@
         <dependency>
             <groupId>net.bounceme.chronos</groupId>
             <artifactId>jboss-eap-example-common-module</artifactId>
-            <version>${version.common}</version>
             <type>jar</type>
         </dependency>
         
         <dependency>
             <groupId>net.bounceme.chronos</groupId>
             <artifactId>jboss-eap-example-ejb-module</artifactId>
-            <version>${version.ejb}</version>
             <type>ejb</type>
         </dependency>
         
         <dependency>
             <groupId>net.bounceme.chronos</groupId>
             <artifactId>jboss-eap-example-rest-module</artifactId>
-            <version>${version.rest}</version>
             <type>war</type>
         </dependency>
         
         <dependency>
             <groupId>net.bounceme.chronos</groupId>
             <artifactId>jboss-eap-example-jsf-module</artifactId>
-            <version>${version.jsf}</version>
             <type>war</type>
         </dependency>
         
         <dependency>
             <groupId>net.bounceme.chronos</groupId>
             <artifactId>jboss-eap-example-ws-module</artifactId>
-            <version>${version.ws}</version>
             <type>war</type>
         </dependency>
     </dependencies>
