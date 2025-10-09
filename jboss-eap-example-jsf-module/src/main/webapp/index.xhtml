@@ -50,12 +50,14 @@
                     <div class="p-fluid">
                         <div class="p-field">
                             <p:outputLabel for="nombre" value="Tu nombre:" />
-                            <p:inputText id="nombre" value="#{usuarioBean.nombre}" 
-                                       placeholder="Escribe tu nombre aquí..."
-                                       required="true"
-                                       requiredMessage="El nombre es obligatorio">
-                                <p:ajax event="keyup" update="saludoBtn" />
-                            </p:inputText>
+                            <p:inputText id="nombre" 
+             					value="#{usuarioBean.nombre}" 
+							  	placeholder="Escribe tu nombre aquí..."
+							   	required="true"
+							   	requiredMessage="El nombre es obligatorio"
+							  	widgetVar="nombreWidget">
+							    <p:ajax event="keyup" update="saludoBtn" />
+							</p:inputText>
                         </div>
                         
                         <div class="p-field">
@@ -63,7 +65,7 @@
                                            value="Saludar" 
                                            action="#{usuarioBean.saludar()}"
                                            icon="pi pi-check"
-                                           update="mensajeSaludo"
+                                           update="resultadoPanel"
                                            styleClass="p-button-primary"
                                            disabled="#{empty usuarioBean.nombre}" />
                         </div>
@@ -71,17 +73,18 @@
                 </h:form>
             </p:card>
 
-            <!-- Mensaje de resultado -->
-            <p:card rendered="#{not empty usuarioBean.mensaje}" 
-                   style="background-color: #F0F9FF; border-left: 4px solid #3B82F6;">
-                <f:facet name="title">
-                    <i class="pi pi-comment" style="color: #3B82F6;"></i>
-                    Resultado
-                </f:facet>
-                <h:outputText id="mensajeSaludo" 
-                            value="#{usuarioBean.mensaje}"
-                            style="font-size: 1.1rem; font-weight: 500; color: #1E40AF;" />
-            </p:card>
+            <!-- Envuelve la tarjeta de resultado -->
+			<p:outputPanel id="resultadoPanel">
+			    <p:card rendered="#{not empty usuarioBean.mensaje}" 
+			           style="background-color: #F0F9FF; border-left: 4px solid #3B82F6;">
+			        <f:facet name="title">
+			            <i class="pi pi-comment" style="color: #3B82F6;"></i>
+			            Resultado
+			        </f:facet>
+			        <h:outputText value="#{usuarioBean.mensaje}"
+			                    style="font-size: 1.1rem; font-weight: 500; color: #1E40AF;" />
+			    </p:card>
+			</p:outputPanel>
 
             <!-- Panel de información del sistema -->
             <p:card style="margin-top: 2rem;">
@@ -103,16 +106,14 @@
             </p:card>
         </div>
 
-        <!-- Script de PrimeFaces para mejoras visuales -->
-        <p:effect>
-            <f:verbatim>
-                <script type="text/javascript">
-                    // Efecto de focus en el input
-                    $(document).ready(function() {
-                        $('#saludoForm\\:nombre').focus();
-                    });
-                </script>
-            </f:verbatim>
-        </p:effect>
+        <!-- Script corregido sin f:verbatim -->
+        <h:outputScript>
+            // Usando PrimeFaces widgetVar para focus
+            $(document).ready(function() {
+                if (PF('nombreWidget')) {
+                    PF('nombreWidget').focus();
+                }
+            });
+        </h:outputScript>
     </h:body>
 </html>
