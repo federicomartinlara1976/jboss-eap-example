@@ -62,7 +62,7 @@
                 <configuration>
                     <version>10</version>
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
-                    <fileNameMapping>no-version</fileNameMapping>
+                    <outputFileNameMapping>no-version</outputFileNameMapping>
                     
                     <modules>
                         <jarModule>
