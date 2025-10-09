@@ -9,7 +9,7 @@
     <parent>
         <groupId>net.bounceme.chronos</groupId>
         <artifactId>jboss-eap-example</artifactId>
-        <version>2.0.0</version>
+        <version>2.0.1</version>
     </parent>
     
     <artifactId>jboss-eap-example-jsf-module</artifactId>
@@ -19,14 +19,12 @@
         <dependency>
             <groupId>net.bounceme.chronos</groupId>
             <artifactId>jboss-eap-example-common-module</artifactId>
-            <version>${version.common}</version>
             <scope>provided</scope>
         </dependency>
         
         <dependency>
             <groupId>net.bounceme.chronos</groupId>
             <artifactId>jboss-eap-example-ejb-module</artifactId>
-            <version>${version.ejb}</version>
             <scope>provided</scope>
             <type>ejb</type>
         </dependency>
@@ -45,5 +43,14 @@
             <version>4.0.0</version>
             <scope>provided</scope>
         </dependency>
+        
+        <!-- Primefaces 13.0.0 (compatible con Jakarta EE 10) -->
+	    <dependency>
+	        <groupId>org.primefaces</groupId>
+	        <artifactId>primefaces</artifactId>
+	        <version>13.0.0</version>
+	        <scope>compile</scope>
+	    </dependency>
+	
     </dependencies>
 </project>

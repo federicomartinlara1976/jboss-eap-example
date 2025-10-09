@@ -1,25 +1,118 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     
     <h:head>
         <title>Mi Aplicación JSF - JBoss EAP 8</title>
+        <style>
+            .container {
+                max-width: 800px;
+                margin: 50px auto;
+                padding: 20px;
+            }
+            .welcome-card {
+                margin-bottom: 2rem;
+            }
+            .form-card {
+                margin-bottom: 2rem;
+            }
+        </style>
     </h:head>
     
     <h:body>
-        <h1>¡Bienvenido a JSF en JBoss EAP 8!</h1>
-        
-        <h:form>
-            <h:panelGrid columns="2">
-                <h:outputLabel for="nombre" value="Tu nombre:" />
-                <h:inputText id="nombre" value="#{usuarioBean.nombre}" />
+        <div class="container">
+            <!-- Tarjeta de bienvenida -->
+            <p:card class="welcome-card">
+                <f:facet name="title">
+                    <i class="pi pi-star-fill" style="color: #6366F1;"></i>
+                    ¡Bienvenido a JSF con PrimeFaces!
+                </f:facet>
+                <f:facet name="subtitle">
+                    JBoss EAP 8 + Jakarta EE 10
+                </f:facet>
                 
-                <h:commandButton value="Saludar" action="#{usuarioBean.saludar}" />
-            </h:panelGrid>
-        </h:form>
-        
-        <h:outputText value="#{usuarioBean.mensaje}" rendered="#{not empty usuarioBean.mensaje}" 
-                     style="font-weight: bold; color: blue; margin-top: 20px; display: block;" />
+                <p class="p-m-0">
+                    Esta es una aplicación modular que demuestra la integración de 
+                    PrimeFaces en un entorno empresarial con JBoss EAP 8.
+                </p>
+            </p:card>
+
+            <!-- Formulario de saludo mejorado -->
+            <p:card class="form-card">
+                <f:facet name="title">
+                    <i class="pi pi-user" style="color: #10B981;"></i>
+                    Formulario de Saludo
+                </f:facet>
+                
+                <h:form id="saludoForm">
+                    <div class="p-fluid">
+                        <div class="p-field">
+                            <p:outputLabel for="nombre" value="Tu nombre:" />
+                            <p:inputText id="nombre" value="#{usuarioBean.nombre}" 
+                                       placeholder="Escribe tu nombre aquí..."
+                                       required="true"
+                                       requiredMessage="El nombre es obligatorio">
+                                <p:ajax event="keyup" update="saludoBtn" />
+                            </p:inputText>
+                        </div>
+                        
+                        <div class="p-field">
+                            <p:commandButton id="saludoBtn" 
+                                           value="Saludar" 
+                                           action="#{usuarioBean.saludar()}"
+                                           icon="pi pi-check"
+                                           update="mensajeSaludo"
+                                           styleClass="p-button-primary"
+                                           disabled="#{empty usuarioBean.nombre}" />
+                        </div>
+                    </div>
+                </h:form>
+            </p:card>
+
+            <!-- Mensaje de resultado -->
+            <p:card rendered="#{not empty usuarioBean.mensaje}" 
+                   style="background-color: #F0F9FF; border-left: 4px solid #3B82F6;">
+                <f:facet name="title">
+                    <i class="pi pi-comment" style="color: #3B82F6;"></i>
+                    Resultado
+                </f:facet>
+                <h:outputText id="mensajeSaludo" 
+                            value="#{usuarioBean.mensaje}"
+                            style="font-size: 1.1rem; font-weight: 500; color: #1E40AF;" />
+            </p:card>
+
+            <!-- Panel de información del sistema -->
+            <p:card style="margin-top: 2rem;">
+                <f:facet name="title">
+                    <i class="pi pi-info-circle" style="color: #6B7280;"></i>
+                    Información del Sistema
+                </f:facet>
+                
+                <p:panelGrid columns="2" layout="grid" styleClass="p-fluid">
+                    <p:outputLabel value="Bean cargado:" />
+                    <p:outputLabel value="#{usuarioBean != null ? '✅ Sí' : '❌ No'}" />
+
+                    <p:outputLabel value="EJB inyectado:" />
+                    <p:outputLabel value="#{usuarioBean.holaMundoEJB != null ? '✅ Sí' : '❌ No'}" />
+
+                    <p:outputLabel value="PrimeFaces:" />
+                    <p:outputLabel value="✅ v13.0.0" />
+                </p:panelGrid>
+            </p:card>
+        </div>
+
+        <!-- Script de PrimeFaces para mejoras visuales -->
+        <p:effect>
+            <f:verbatim>
+                <script type="text/javascript">
+                    // Efecto de focus en el input
+                    $(document).ready(function() {
+                        $('#saludoForm\\:nombre').focus();
+                    });
+                </script>
+            </f:verbatim>
+        </p:effect>
     </h:body>
 </html>

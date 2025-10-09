@@ -33,6 +33,32 @@
         <param-value>true</param-value>
     </context-param>
     
+    <!-- Configuración Primefaces -->
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>saga</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>primefaces.FONT_AWESOME</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>primefaces.CLIENT_SIDE_VALIDATION</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    
+    <context-param>
+	    <param-name>primefaces.THEME</param-name>
+	    <!-- Opciones populares: -->
+	    <param-value>saga</param-value>       <!-- Tema claro (default) -->
+	    <!-- <param-value>arya</param-value>     Tema oscuro -->
+	    <!-- <param-value>vela</param-value>     Tema azul -->
+	    <!-- <param-value>nova-colored</param-value> Tema colorido -->
+	    <!-- <param-value>luna-amber</param-value>   Tema ámbar -->
+	</context-param>
+    
     <!-- Servlet JSF -->
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
