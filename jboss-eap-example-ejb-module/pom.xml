@@ -19,7 +19,6 @@
         <dependency>
             <groupId>net.bounceme.chronos</groupId>
             <artifactId>jboss-eap-example-common-module</artifactId>
-            <version>${version.common}</version>
             <scope>provided</scope>
         </dependency>
         
