@@ -1,6 +1,6 @@
 package net.bounceme.chronos.rest;
 
-import com.ejemplo.ejb.HolaMundoEJB;
+import net.bounceme.chronos.ejb.HolaMundoEJB;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
