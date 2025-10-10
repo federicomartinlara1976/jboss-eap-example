@@ -24,6 +24,7 @@
 </h:head>
 
 <h:body>
+	<f:view>
 	<div class="container">
 		<!-- Tarjeta de bienvenida -->
 		<p:card class="welcome-card">
@@ -54,16 +55,14 @@
 						<p:inputText id="nombre" value="#{usuarioBean.nombre}"
 							placeholder="Escribe tu nombre aquí..." required="true"
 							requiredMessage="El nombre es obligatorio"
-							widgetVar="nombreWidget">
-							<p:ajax event="keyup" update="saludoBtn" />
-						</p:inputText>
+							widgetVar="nombreWidget"/>
 					</div>
 
 					<div class="p-field">
 						<p:commandButton id="saludoBtn" value="Saludar"
-							action="#{usuarioBean.saludar()}" icon="pi pi-check"
-							update="resultadoPanel" styleClass="p-button-primary"
-							disabled="#{empty usuarioBean.nombre}" />
+							actionListener="#{usuarioBean.saludar}" process="@form" ajax="true" 
+							icon="pi pi-check"
+							update="resultadoPanel" styleClass="p-button-primary" />
 					</div>
 				</div>
 
@@ -103,5 +102,6 @@
 			</p:panelGrid>
 		</p:card>
 	</div>
+	</f:view>
 </h:body>
 </html>
