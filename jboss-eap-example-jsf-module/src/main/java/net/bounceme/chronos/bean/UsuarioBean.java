@@ -1,12 +1,13 @@
 package net.bounceme.chronos.bean;
 
-import net.bounceme.chronos.ejb.HolaMundoEJB;
-
 import org.jboss.logging.Logger;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import lombok.Getter;
+import lombok.Setter;
+import net.bounceme.chronos.ejb.HolaMundoEJB;
 
 @Named
 @RequestScoped
@@ -14,10 +15,15 @@ public class UsuarioBean {
 	
 	private static final Logger logger = Logger.getLogger(UsuarioBean.class);
     
+	@Getter
+	@Setter
     private String nombre;
+    
+    @Getter
     private String mensaje;
     
     @Inject
+    @Getter
     private HolaMundoEJB holaMundoEJB;
     
     public void saludar() {
@@ -34,13 +40,4 @@ public class UsuarioBean {
         logger.infof("Mensaje final: '%s'", mensaje);
         logger.infof("=== FIN saludar() ===");
     }
-    
-    // Getters y Setters
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
-    public String getMensaje() { return mensaje; }
-
-	public HolaMundoEJB getHolaMundoEJB() {
-		return holaMundoEJB;
-	}
 }
