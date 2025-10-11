@@ -1,4 +1,4 @@
-# Próximas funcionalidades interesantes para implementar:
+# Plan de desarrollo y pruebas
 
 ### 1. Persistencia con JPA/Hibernate
 
