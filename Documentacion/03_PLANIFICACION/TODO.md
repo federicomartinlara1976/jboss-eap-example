@@ -1,8 +1,9 @@
-# Plan de desarrollo y pruebas
+# Plan de desarrollo y pruebas (PL-000_DOC_GENERAL_PLAN)
 
-### 1. Persistencia con JPA/Hibernate
+### 1. Persistencia con JPA/Hibernate (Plan PL-001_JPA_HIBERNATE)
 
 * Conexión a base de datos
+  - Documentación técnica: **CONF-001_DOC_CONFIGURACION_BD** 
 * Entidades JPA
 * Repositorios con Panache
 
