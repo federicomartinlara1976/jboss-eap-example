@@ -1,5 +1,9 @@
 # Plan de desarrollo y pruebas (PL-000_DOC_GENERAL_PLAN)
 
+La documentación técnica resultante se encuentra en la carpeta **04_DOC_TECNICA**.
+Para la correcta interpretación y lectura de la documentación técnica, leer el
+documento **README.md** de dicha carpeta. 
+
 ### 1. Persistencia con JPA/Hibernate (Plan PL-001_JPA_HIBERNATE)
 
 * Conexión a base de datos
