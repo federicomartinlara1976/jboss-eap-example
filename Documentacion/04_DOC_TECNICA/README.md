@@ -4,7 +4,7 @@ Organizada por carpetas, cada carpeta se detalla a continuación:
 
 ### 01_CONFIGURACION
 
-* Configuraciones del servidor JBoss EAP. 
+* Configuraciones del servidor JBoss EAP y de los distintos componentes. 
 * Prefijo de los documentos: **CONF-**
 
 ### 02_DESARROLLO
