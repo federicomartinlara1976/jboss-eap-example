@@ -9,6 +9,7 @@ documento **README.md** de dicha carpeta.
 * Conexión a base de datos
   - Documentación técnica: **CONF-001_DOC_CONFIGURACION_BD** 
 * Entidades JPA
+  - Documentación técnica: **DES-001_DOC_DESARROLLO_JPA**
 * Repositorios con Panache
 
 ### 2. Seguridad con Keycloak
