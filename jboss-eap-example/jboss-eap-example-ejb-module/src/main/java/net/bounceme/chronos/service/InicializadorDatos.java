@@ -1,16 +1,16 @@
 package net.bounceme.chronos.service;
 
-import net.bounceme.chronos.ejb.HolaMundoEJB;
-import net.bounceme.chronos.entity.Producto;
-import net.bounceme.chronos.entity.Usuario;
+import java.math.BigDecimal;
+
+import org.jboss.logging.Logger;
+
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import java.math.BigDecimal;
-
-import org.jboss.logging.Logger;
+import net.bounceme.chronos.entity.Producto;
+import net.bounceme.chronos.entity.Usuario;
 
 @Singleton
 @Startup
