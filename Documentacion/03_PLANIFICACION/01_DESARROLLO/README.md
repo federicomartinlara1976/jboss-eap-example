@@ -1,6 +1,6 @@
-# Plan de desarrollo y pruebas (PL-000_DOC_GENERAL_PLAN)
+# Plan de desarrollo y pruebas (PL-000_DOC_GENERAL_DESARROLLO)
 
-La documentación técnica resultante se encuentra en la carpeta **04_DOC_TECNICA**.
+La documentación técnica resultante se encuentra en la carpeta **/Documentacion/04_DOC_TECNICA**.
 Para la correcta interpretación y lectura de la documentación técnica, leer el
 documento **README.md** de dicha carpeta. 
 
