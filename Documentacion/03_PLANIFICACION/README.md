@@ -2,5 +2,5 @@
 
 ### 1. Plan de desarrollo (01_DESARROLLO)
 
-### 2. Plande entrega y versionado (02_VERSIONES)
+### 2. Plan de entrega y versionado (02_VERSIONES)
 
