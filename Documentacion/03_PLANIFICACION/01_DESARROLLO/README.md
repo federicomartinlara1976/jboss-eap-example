@@ -11,6 +11,7 @@ documento **README.md** de dicha carpeta.
 * Entidades JPA
   - Documentación técnica: **DES-001_DOC_DESARROLLO_JPA**
 * Repositorios con Panache
+  - Documentación técnica: **DES-002_DOC_DESARROLLO_REPO**
 
 ### 2. Seguridad con Keycloak
 
