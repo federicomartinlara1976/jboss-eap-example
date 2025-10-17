@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>net.bounceme.chronos</groupId>
+        <artifactId>jboss-eap-example</artifactId>
+        <version>2.0.1</version>
+    </parent>
+    
+    <artifactId>jboss-eap-example-jsf-module</artifactId>
+    <packaging>war</packaging>
+    
+    <dependencies>
+        <dependency>
+            <groupId>net.bounceme.chronos</groupId>
+            <artifactId>jboss-eap-example-common-module</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>net.bounceme.chronos</groupId>
+            <artifactId>jboss-eap-example-ejb-module</artifactId>
+            <scope>provided</scope>
+            <type>ejb</type>
+        </dependency>
+        
+        <dependency>
+		    <groupId>jakarta.enterprise</groupId>
+		    <artifactId>jakarta.enterprise.cdi-api</artifactId>
+		    <version>4.0.1</version>
+		    <scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+    		<groupId>org.jboss.logging</groupId>
+		    <artifactId>jboss-logging</artifactId>
+		    <version>3.5.0.Final</version>
+		    <scope>provided</scope>
+		</dependency>
+        
+        <!-- JSF -->
+        <dependency>
+            <groupId>jakarta.faces</groupId>
+            <artifactId>jakarta.faces-api</artifactId>
+            <version>4.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!-- Primefaces 13.0.0 (compatible con Jakarta EE 10) -->
+	    <dependency>
+	        <groupId>org.primefaces</groupId>
+	        <artifactId>primefaces</artifactId>
+	        <version>13.0.0</version>
+	        <classifier>jakarta</classifier>
+	        <scope>compile</scope>
+	    </dependency>
+	
+    </dependencies>
+</project>
