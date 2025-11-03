@@ -13,7 +13,7 @@ documento **README.md** de dicha carpeta.
 * Repositorios con Panache
   - Documentación técnica: **DES-002_DOC_DESARROLLO_REPO**
 
-### 2. Seguridad con Keycloak
+### 2. Seguridad con Keycloak (Plan PL-002_SEC_KEYCLOACK)
 
 * Autenticación OAuth2
 * Roles y permisos
