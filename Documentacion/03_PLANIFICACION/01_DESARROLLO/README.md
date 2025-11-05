@@ -15,6 +15,10 @@ documento **README.md** de dicha carpeta.
 
 ### 2. Seguridad con Keycloak (Plan PL-002_SEC_KEYCLOACK)
 
+* Plan de implementación de Keycloak
+  - Documentación técnica: 
+    - **CONF-002_DOC_CONFIGURACION_KEYCLOAK**
+    - **CONF-003_DOC_CONFIGURACION_REALM** 
 * Autenticación OAuth2
 * Roles y permisos
 * SSO (Single Sign-On)

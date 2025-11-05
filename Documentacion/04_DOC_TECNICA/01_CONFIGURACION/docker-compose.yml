@@ -1,0 +1,78 @@
+version: '3.8'
+services:
+
+# Si ya hay un servidor de PostgreSQL instalado, dejar comentado. 
+# En caso contrario, descomentar las siguientes líneas para crear uno      
+#  postgres:
+#    image: postgres:15
+#    container_name: keycloak-postgres
+#    environment:
+#      POSTGRES_DB: keycloak
+#      POSTGRES_USER: keycloak
+#      POSTGRES_PASSWORD: password
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+#    networks:
+#      - server-network
+#    healthcheck:
+#      test: ["CMD-SHELL", "pg_isready -U keycloak"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
+      
+  keycloak:
+    image: quay.io/keycloak/keycloak:22.0.0
+    container_name: keycloak-server
+    environment:
+      KC_HEALTH_ENABLED: "true"
+      KC_METRICS_ENABLED: "true"
+      
+      # Database
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://[ip-servidor-postgres]:5432/keycloack
+      KC_DB_USERNAME: keycloack
+      KC_DB_PASSWORD: [password]
+      
+      # Keycloak Admin
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: [password]
+      
+      # Features (opcional para desarrollo)
+      KC_FEATURES: token-exchange,admin-fine-grained-authz,scripts
+      
+      # Hostname (ajusta según tu entorno)
+      KC_HOSTNAME: [ip-servidor]
+      KC_HOSTNAME_PORT: [puerto, 8080 por defecto]
+      
+      KC_HTTP_ENABLED: "true"
+      KC_HOSTNAME_STRICT: "false"
+      KC_HOSTNAME_STRICT_HTTPS: "false"
+      KC_HOSTNAME_STRICT_BACKCHANNEL: "false"
+      
+      # Proxy settings (importante para Docker)
+      KC_PROXY: edge
+      KC_HTTP_ENABLED: "true"
+    command: 
+      - start
+    ports:
+      - "[puerto]:8080"
+    #depends_on:
+    #  postgres:
+    #    condition: service_healthy
+    volumes:
+      - ./keycloak_realm:/opt/keycloak/data/import
+    networks:
+      - server-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health/ready"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+
+networks:
+  server-network:
+    driver: bridge
+    name: server-network
+    
+volumes:
+  postgres_data:
