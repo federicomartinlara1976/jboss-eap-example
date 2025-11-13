@@ -16,12 +16,6 @@
     <packaging>jar</packaging>
     
     <dependencies>
-    	<dependency>
-    		<groupId>org.jboss.logging</groupId>
-		    <artifactId>jboss-logging</artifactId>
-		    <version>3.5.0.Final</version>
-		    <scope>provided</scope>
-		</dependency>
     
         <!-- Jakarta EE API básica -->
         <dependency>
