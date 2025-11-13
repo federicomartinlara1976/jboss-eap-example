@@ -7,6 +7,41 @@
     
     <display-name>Mi Aplicación EAP</display-name>
     
+    <!-- Security Constraints -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Secure API</web-resource-name>
+            <url-pattern>/rest/secure/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>user</role-name>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Admin API</web-resource-name>
+            <url-pattern>/rest/admin/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <!-- Login Config for OIDC -->
+    <login-config>
+        <auth-method>OIDC</auth-method>
+    </login-config>
+
+    <!-- Security Roles -->
+    <security-role>
+        <role-name>user</role-name>
+    </security-role>
+    <security-role>
+        <role-name>admin</role-name>
+    </security-role>
+    
     <!-- Filtros -->
     <filter>
         <filter-name>LoggerFilter</filter-name>
