@@ -27,8 +27,8 @@ public class LoggerFilter implements Filter {
         
         long startTime = System.currentTimeMillis();
         
-        log.infof(">>> [INICIO] %s - IP: %s - Método: %s - URL: %s", 
-                    new Date(), ip, method, url);
+        log.infof(">>> [INICIO] %s - Agent: %s, IP: %s - Método: %s - URL: %s", 
+                    new Date(), userAgent, ip, method, url);
         
         chain.doFilter(request, response);
         
