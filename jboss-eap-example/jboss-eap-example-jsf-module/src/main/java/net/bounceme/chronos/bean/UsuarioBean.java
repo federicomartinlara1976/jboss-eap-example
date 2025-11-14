@@ -28,7 +28,7 @@ public class UsuarioBean {
 	public void saludar() {
 		Asserts.assertNotNull(holaMundoEJB, "Error interno");
 
-		mensaje = (StringUtils.isBlank(nombre)) ? 
+		mensaje = (StringUtils.isNotBlank(nombre)) ? 
 				holaMundoEJB.saludoEJB(nombre).getMensaje() : 
 				holaMundoEJB.saludoEJB().getMensaje();
 	}
