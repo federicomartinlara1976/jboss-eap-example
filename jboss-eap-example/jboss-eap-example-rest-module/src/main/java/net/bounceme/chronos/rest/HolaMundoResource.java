@@ -31,7 +31,7 @@ public class HolaMundoResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getSaludoPersonalizado(@PathParam("nombre") String nombre) {
     	MensajeDTO mensaje = MensajeDTO.builder()
-        		.mensaje(holaMundoEJB.saludoPersonalizadoEJB(nombre))
+        		.mensaje(holaMundoEJB.saludoEJB(nombre))
         		.build();
     	
         return Response.ok(mensaje).build();

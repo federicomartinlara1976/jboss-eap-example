@@ -12,8 +12,8 @@ public class HolaMundoEJB {
         return "¡Hola desde EJB Stateless!";
     }
     
-    public String saludoPersonalizadoEJB(String nombre) {
-    	log.info("EJB: Ejecutando saludoPersonalizadoEJB");
+    public String saludoEJB(String nombre) {
+    	log.info("EJB: Ejecutando saludoEJB");
         return String.format("¡Hola %s desde EJB!", nombre);
     }
 }

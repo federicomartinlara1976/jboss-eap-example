@@ -18,6 +18,6 @@ public class HolaMundoWS {
     
     @WebMethod
     public String saludarPersonalizado(String nombre) {
-        return holaMundoEJB.saludoPersonalizadoEJB(nombre);
+        return holaMundoEJB.saludoEJB(nombre);
     }
 }
