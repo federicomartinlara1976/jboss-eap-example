@@ -2,18 +2,25 @@ package net.bounceme.chronos.ejb;
 
 import jakarta.ejb.Stateless;
 import lombok.extern.jbosslog.JBossLog;
+import net.bounceme.chronos.dto.MensajeDTO;
 
 @Stateless
 @JBossLog
 public class HolaMundoEJB {
     
-    public String saludoEJB() {
+    public MensajeDTO saludoEJB() {
         log.info("EJB: Ejecutando saludoEJB");
-        return "¡Hola desde EJB Stateless!";
+        
+        return MensajeDTO.builder()
+        		.mensaje("¡Hola desde EJB Stateless!")
+        		.build();
     }
     
-    public String saludoEJB(String nombre) {
+    public MensajeDTO saludoEJB(String nombre) {
     	log.info("EJB: Ejecutando saludoEJB");
-        return String.format("¡Hola %s desde EJB!", nombre);
+        
+        return MensajeDTO.builder()
+        		.mensaje(String.format("¡Hola %s desde EJB!", nombre))
+        		.build();
     }
 }
