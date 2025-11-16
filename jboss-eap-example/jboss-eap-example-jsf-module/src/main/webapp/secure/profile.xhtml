@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <h:head>
+        <title>Mi Perfil - JBoss EAP Example</title>
+    </h:head>
+    
+    <h:body>
+        <div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+            <p:card>
+                <f:facet name="title">
+                    <i class="pi pi-user"></i>
+                    Mi Perfil
+                </f:facet>
+                
+                <p:panelGrid columns="2" layout="grid">
+                    <p:outputLabel value="Nombre de usuario:" />
+                    <p:outputLabel value="#{request.userPrincipal.name}" />
+                    
+                    <p:outputLabel value="Roles:" />
+                    <p:outputLabel>
+                        <p:chip label="user" rendered="#{request.isUserInRole('user')}" />
+                        <p:chip label="admin" rendered="#{request.isUserInRole('admin')}" 
+                               styleClass="p-chip-success" />
+                    </p:outputLabel>
+                    
+                    <p:outputLabel value="Sesión segura:" />
+                    <p:outputLabel value="✅ Protegida por Keycloak OIDC" />
+                </p:panelGrid>
+                
+                <p:separator />
+                
+                <p:commandLink value="🔙 Volver al Dashboard" 
+                             action="/secure/dashboard.xhtml?faces-redirect=true" 
+                             styleClass="p-button-text" />
+            </p:card>
+        </div>
+    </h:body>
+</html>

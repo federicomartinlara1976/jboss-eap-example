@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <f:view>
+        <h:head>
+            <title>Dashboard Seguro - JBoss EAP Example</title>
+            <style>
+                .dashboard-container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding: 20px;
+                }
+                .user-info {
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    color: white;
+                    border-radius: 10px;
+                }
+            </style>
+        </h:head>
+        
+        <h:body>
+            <div class="dashboard-container">
+                <!-- Header con información del usuario -->
+                <p:card styleClass="user-info">
+                    <f:facet name="title">
+                        <i class="pi pi-shield"></i>
+                        Dashboard Seguro
+                    </f:facet>
+                    <p:panelGrid columns="2" styleClass="p-nogrid">
+                        <p:outputLabel value="Usuario autenticado:" />
+                        <p:outputLabel value="#{request.userPrincipal.name}" />
+                        
+                        <p:outputLabel value="Roles:" />
+                        <p:outputLabel value="#{request.isUserInRole('admin') ? 'Admin, User' : 'User'}" />
+                    </p:panelGrid>
+                </p:card>
+
+                <!-- Navegación -->
+                <p:card style="margin-top: 20px;">
+                    <f:facet name="title">
+                        <i class="pi pi-bars"></i>
+                        Navegación
+                    </f:facet>
+                    
+                    <p:panelGrid columns="1" layout="grid">
+                        <p:commandLink value="🏠 Mi Perfil" 
+                                     action="/secure/profile.xhtml?faces-redirect=true" 
+                                     styleClass="p-button-text" />
+                        
+                        <p:commandLink value="📊 Dashboard" 
+                                     action="/secure/dashboard.xhtml?faces-redirect=true" 
+                                     styleClass="p-button-text" />
+                        
+                        <p:commandLink value="🏠 Página Principal" 
+                                     action="/index.xhtml?faces-redirect=true" 
+                                     styleClass="p-button-text" />
+                        
+                        <p:commandLink value="🚪 Cerrar Sesión" 
+                                     action="#{securityBean.logout}" 
+                                     styleClass="p-button-danger p-button-text" 
+                                     rendered="#{request.userPrincipal != null}" />
+                    </p:panelGrid>
+                </p:card>
+
+                <!-- Contenido del dashboard -->
+                <p:card style="margin-top: 20px;">
+                    <f:facet name="title">
+                        <i class="pi pi-chart-bar"></i>
+                        Información del Sistema
+                    </f:facet>
+                    
+                    <p:panelGrid columns="2" layout="grid">
+                        <p:outputLabel value="Usuario:" />
+                        <p:outputLabel value="#{request.userPrincipal.name}" />
+                        
+                        <p:outputLabel value="Autenticado:" />
+                        <p:outputLabel value="#{request.userPrincipal != null ? '✅ Sí' : '❌ No'}" />
+                        
+                        <p:outputLabel value="Es Admin:" />
+                        <p:outputLabel value="#{request.isUserInRole('admin') ? '✅ Sí' : '❌ No'}" />
+                        
+                        <p:outputLabel value="Es User:" />
+                        <p:outputLabel value="#{request.isUserInRole('user') ? '✅ Sí' : '❌ No'}" />
+                    </p:panelGrid>
+                </p:card>
+
+                <!-- Sección solo para admins -->
+                <p:card style="margin-top: 20px;" rendered="#{request.isUserInRole('admin')}">
+                    <f:facet name="title">
+                        <i class="pi pi-cog"></i>
+                        Herramientas de Administración
+                    </f:facet>
+                    <p>Bienvenido, administrador. Tienes acceso a funciones especiales.</p>
+                    <p:commandLink value="⚙️ Panel de Administración" 
+                                 action="/admin/management.xhtml?faces-redirect=true" 
+                                 styleClass="p-button-success" />
+                </p:card>
+            </div>
+        </h:body>
+    </f:view>
+</html>

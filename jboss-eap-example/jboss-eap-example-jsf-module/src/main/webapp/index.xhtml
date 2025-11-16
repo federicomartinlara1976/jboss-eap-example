@@ -30,11 +30,11 @@
 
 				<p:panelGrid columns="2" layout="grid" styleClass="p-fluid">
 					<p:outputLabel value="Bean cargado:" />
-					<p:outputLabel value="#{usuarioBean != null ? '✅ Sí' : '❌ No'}" />
+					<p:outputLabel value="#{helloBean != null ? '✅ Sí' : '❌ No'}" />
 
 					<p:outputLabel value="EJB inyectado:" />
 					<p:outputLabel
-						value="#{usuarioBean.holaMundoEJB != null ? '✅ Sí' : '❌ No'}" />
+						value="#{helloBean.holaMundoEJB != null ? '✅ Sí' : '❌ No'}" />
 
 					<p:outputLabel value="PrimeFaces:" />
 					<p:outputLabel value="✅ v13.0.0" />
@@ -51,7 +51,7 @@
 				<div class="ui-g ui-fluid">
 					<div class="ui-g-12">
 						<p:outputLabel for="nombre" value="Tu nombre:" />
-						<p:inputText id="nombre" value="#{usuarioBean.nombre}"
+						<p:inputText id="nombre" value="#{helloBean.nombre}"
 							placeholder="Escribe tu nombre aquí..." required="true"
 							requiredMessage="El nombre es obligatorio"
 							widgetVar="nombreWidget" />
@@ -59,7 +59,7 @@
 
 					<div class="ui-g-12">
 						<p:commandButton id="saludoBtn" value="Saludar"
-							actionListener="#{usuarioBean.saludar}" process="@form"
+							actionListener="#{helloBean.saludar}" process="@form"
 							ajax="true" icon="pi pi-check" update="resultadoPanel"
 							styleClass="p-button-primary" />
 					</div>
@@ -69,13 +69,13 @@
 
 			<!-- Envuelve la tarjeta de resultado -->
 			<p:outputPanel id="resultadoPanel">
-				<p:panel rendered="#{not empty usuarioBean.mensaje}"
+				<p:panel rendered="#{not empty helloBean.mensaje}"
 					styleClass="ui-g-12 ui-md-12 ui-lg-12">
 					<f:facet name="header">
 						<i class="pi pi-comment" style="color: #3B82F6;"></i>
 		            	Resultado
 		        	</f:facet>
-					<h:outputText value="#{usuarioBean.mensaje}"
+					<h:outputText value="#{helloBean.mensaje}"
 						style="font-size: 1.1rem; font-weight: 500; color: #1E40AF;" />
 				</p:panel>
 			</p:outputPanel>

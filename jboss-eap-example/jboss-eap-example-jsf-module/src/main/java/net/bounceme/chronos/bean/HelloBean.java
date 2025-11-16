@@ -12,7 +12,7 @@ import net.bounceme.chronos.utils.Asserts;
 
 @Named
 @RequestScoped
-public class UsuarioBean {
+public class HelloBean {
 
 	@Getter
 	@Setter
