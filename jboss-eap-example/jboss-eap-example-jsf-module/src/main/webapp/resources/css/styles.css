@@ -98,13 +98,18 @@ footer span {
 	margin-top: 0.5em;
 }
 
-.topbar-left .description,
-.topbar-left .version {
+.topbar-left .title {
+	padding-left: 1rem;
+	float:left;
+}
+
+.topbar-left .title .description,
+.topbar-left .title .version {
 	color: #fff;
 	display:block
 }
 
-.topbar-left .version {
+.topbar-left .title .version {
 	font-size: 12px;
 }
 
