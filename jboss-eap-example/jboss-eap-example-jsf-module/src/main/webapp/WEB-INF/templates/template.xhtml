@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<ui:insert name="ads"></ui:insert>
+
+	<title><h:outputText value="#{res['app.title']}"/></title>
+	<ui:include src="head.xhtml" />
+	
+	<ui:insert name="styles"></ui:insert>
+</h:head>
+
+<h:body role="document">
+	<f:view>
+		<h:form prependId="false">
+		    
+		    <p:growl id="messages" showDetail="true" sticky="true" />  
+
+			<p:outputPanel id="layoutWrapper" layout="block"
+				styleClass="layout-wrapper menu-layout-static">
+				<p:outputPanel layout="block" styleClass="topbar clearfix">
+					<p:outputPanel layout="block" styleClass="topbar-left">
+						<span class="description">
+							<strong><h:outputText value="#{res['app.descripcion']}"/></strong>
+						</span>
+						<span class="version">
+							<h:outputText value="#{res['app.version']}"/>
+						</span>	
+					</p:outputPanel>
+
+					<p:outputPanel layout="block" styleClass="topbar-right">
+						<ui:insert name="title"></ui:insert>	
+					</p:outputPanel>	
+				</p:outputPanel>
+				
+				<p:outputPanel id="layoutMenuContainer" layout="block"
+					styleClass="layout-menu-container">
+					<ui:insert name="menu"></ui:insert>
+				</p:outputPanel>
+
+				<p:outputPanel id="layoutMain" layout="block"
+					styleClass="layout-main">
+
+					<p:outputPanel id="layoutContent" layout="block"
+						styleClass="layout-content">
+						<ui:insert name="content"></ui:insert>
+					</p:outputPanel>
+
+				</p:outputPanel>
+
+				<ui:include src="footer.xhtml" />
+			</p:outputPanel>
+		</h:form>
+	</f:view>
+
+</h:body>
+</html>
