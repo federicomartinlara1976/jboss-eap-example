@@ -5,73 +5,25 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/templates/template.xhtml">
 
-	<ui:define name="title">
-	</ui:define>
-
-	<ui:define name="menu">
-	</ui:define>
-
 	<ui:define name="content">
-		<div class="container">
+		<p:outputPanel styleClass="dashboard">
 			<!-- Tarjeta de bienvenida -->
-			<p:card class="welcome-card">
-				<f:facet name="title">
+			<p:panel styleClass="ui-g-6 ui-md-6 ui-lg-6">
+				<f:facet name="header">
 					<i class="pi pi-star-fill" style="color: #6366F1;"></i>
                     ¡Bienvenido a JSF con PrimeFaces!
                 </f:facet>
-				<f:facet name="subtitle">
-                    JBoss EAP 8 + Jakarta EE 10
-                </f:facet>
+				
+				<h4>JBoss EAP 8 + Jakarta EE 10</h4>
 
 				<p class="p-m-0">Esta es una aplicación modular que demuestra la
 					integración de PrimeFaces en un entorno empresarial con JBoss EAP
 					8.</p>
-			</p:card>
-
-			<!-- Formulario de saludo mejorado -->
-			<h:form id="saludoForm">
-				<p:card class="form-card">
-					<f:facet name="title">
-						<i class="pi pi-user" style="color: #10B981;"></i>
-                    Formulario de Saludo
-                </f:facet>
-
-					<div class="p-fluid">
-						<div class="p-field">
-							<p:outputLabel for="nombre" value="Tu nombre:" />
-							<p:inputText id="nombre" value="#{usuarioBean.nombre}"
-								placeholder="Escribe tu nombre aquí..." required="true"
-								requiredMessage="El nombre es obligatorio"
-								widgetVar="nombreWidget" />
-						</div>
-
-						<div class="p-field">
-							<p:commandButton id="saludoBtn" value="Saludar"
-								actionListener="#{usuarioBean.saludar}" process="@form"
-								ajax="true" icon="pi pi-check" update="resultadoPanel"
-								styleClass="p-button-primary" />
-						</div>
-					</div>
-
-				</p:card>
-
-				<!-- Envuelve la tarjeta de resultado -->
-				<p:outputPanel id="resultadoPanel">
-					<p:card rendered="#{not empty usuarioBean.mensaje}"
-						style="background-color: #F0F9FF; border-left: 4px solid #3B82F6;">
-						<f:facet name="title">
-							<i class="pi pi-comment" style="color: #3B82F6;"></i>
-			            Resultado
-			        </f:facet>
-						<h:outputText value="#{usuarioBean.mensaje}"
-							style="font-size: 1.1rem; font-weight: 500; color: #1E40AF;" />
-					</p:card>
-				</p:outputPanel>
-			</h:form>
-
+			</p:panel>
+			
 			<!-- Panel de información del sistema -->
-			<p:card style="margin-top: 2rem;">
-				<f:facet name="title">
+			<p:panel styleClass="ui-g-6 ui-md-6 ui-lg-6">
+				<f:facet name="header">
 					<i class="pi pi-info-circle" style="color: #6B7280;"></i>
                     Información del Sistema
                 </f:facet>
@@ -87,8 +39,48 @@
 					<p:outputLabel value="PrimeFaces:" />
 					<p:outputLabel value="✅ v13.0.0" />
 				</p:panelGrid>
-			</p:card>
-		</div>
+			</p:panel>
+
+			<!-- Formulario de saludo mejorado -->
+			<p:panel styleClass="ui-g-12 ui-md-12 ui-lg-12">
+				<f:facet name="header">
+					<i class="pi pi-user" style="color: #10B981;"></i>
+                   Formulario de Saludo
+               </f:facet>
+
+				<div class="ui-g ui-fluid">
+					<div class="ui-g-12">
+						<p:outputLabel for="nombre" value="Tu nombre:" />
+						<p:inputText id="nombre" value="#{usuarioBean.nombre}"
+							placeholder="Escribe tu nombre aquí..." required="true"
+							requiredMessage="El nombre es obligatorio"
+							widgetVar="nombreWidget" />
+					</div>
+
+					<div class="ui-g-12">
+						<p:commandButton id="saludoBtn" value="Saludar"
+							actionListener="#{usuarioBean.saludar}" process="@form"
+							ajax="true" icon="pi pi-check" update="resultadoPanel"
+							styleClass="p-button-primary" />
+					</div>
+				</div>
+
+			</p:panel>
+
+			<!-- Envuelve la tarjeta de resultado -->
+			<p:outputPanel id="resultadoPanel">
+				<p:panel rendered="#{not empty usuarioBean.mensaje}"
+					styleClass="ui-g-12 ui-md-12 ui-lg-12">
+					<f:facet name="header">
+						<i class="pi pi-comment" style="color: #3B82F6;"></i>
+		            	Resultado
+		        	</f:facet>
+					<h:outputText value="#{usuarioBean.mensaje}"
+						style="font-size: 1.1rem; font-weight: 500; color: #1E40AF;" />
+				</p:panel>
+			</p:outputPanel>
+			
+		</p:outputPanel>
 	</ui:define>
 
 </ui:composition>

@@ -1280,7 +1280,7 @@ body {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);*/ }
     .layout-wrapper .topbar .topbar-left .topbar-logo {
       height: 30px; }
-  .layout-wrapper .topbar .topbar-right {
+  .layout-wrapper .topbar {
     padding-right: 15px;
     height: 60px;
     background-color: #0772B3;
@@ -1291,7 +1291,7 @@ body {
     background-image: -o-linear-gradient(left, #457fca, #5691c8);
     background-image: linear-gradient(left, #457fca, #5691c8);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#457fca', endColorstr='#5691c8', gradientType='1'); */}
-    .layout-wrapper .topbar .topbar-right #menu-button {
+    .layout-wrapper .topbar #menu-button {
       color: #234b7d;
       display: inline-block;
       vertical-align: middle;
@@ -1506,8 +1506,7 @@ body {
   -moz-transition: margin-left 0.3s;
   -o-transition: margin-left 0.3s;
   -webkit-transition: margin-left 0.3s;
-  transition: margin-left 0.3s; 
-  margin-left: 235px; }
+  transition: margin-left 0.3s; }
 .layout-wrapper .layout-main.wizard {
   padding: 10px 15px 15px 15px;
   -moz-transition: margin-left 0.3s;

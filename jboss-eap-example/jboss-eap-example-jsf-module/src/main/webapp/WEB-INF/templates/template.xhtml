@@ -20,37 +20,27 @@
 		    <p:growl id="messages" showDetail="true" sticky="true" />  
 
 			<p:outputPanel id="layoutWrapper" layout="block"
-				styleClass="layout-wrapper menu-layout-static">
+				styleClass="layout-wrapper">
 				<p:outputPanel layout="block" styleClass="topbar clearfix">
 					<p:outputPanel layout="block" styleClass="topbar-left">
+						<p:graphicImage styleClass="icon32"
+							value="../wildfly_logo.png" width="200"/>
 						<span class="description">
 							<strong><h:outputText value="#{res['app.descripcion']}"/></strong>
 						</span>
 						<span class="version">
 							<h:outputText value="#{res['app.version']}"/>
 						</span>	
-					</p:outputPanel>
-
-					<p:outputPanel layout="block" styleClass="topbar-right">
-						<ui:insert name="title"></ui:insert>	
 					</p:outputPanel>	
-				</p:outputPanel>
-				
-				<p:outputPanel id="layoutMenuContainer" layout="block"
-					styleClass="layout-menu-container">
-					<ui:insert name="menu"></ui:insert>
 				</p:outputPanel>
 
 				<p:outputPanel id="layoutMain" layout="block"
-					styleClass="layout-main">
+					styleClass="layout-main ui-g">
 
-					<p:outputPanel id="layoutContent" layout="block"
-						styleClass="layout-content">
-						<ui:insert name="content"></ui:insert>
-					</p:outputPanel>
-
+					<ui:insert name="content"></ui:insert>
+					
 				</p:outputPanel>
-
+				
 				<ui:include src="footer.xhtml" />
 			</p:outputPanel>
 		</h:form>
