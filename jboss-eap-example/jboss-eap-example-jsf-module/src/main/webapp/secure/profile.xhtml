@@ -1,21 +1,19 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
-    
-    <h:head>
-        <title>Mi Perfil - JBoss EAP Example</title>
-    </h:head>
-    
-    <h:body>
-        <div style="max-width: 800px; margin: 0 auto; padding: 20px;">
-            <p:card>
-                <f:facet name="title">
-                    <i class="pi pi-user"></i>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/templates/template.xhtml">
+	
+	<ui:define name="content">
+		<p:outputPanel styleClass="dashboard">
+			<p:panel styleClass="ui-g-12 ui-md-12 ui-lg-12">
+				<f:facet name="header">
+					<i class="pi pi-user"></i>
                     Mi Perfil
                 </f:facet>
-                
-                <p:panelGrid columns="2" layout="grid">
+				
+				<p:panelGrid columns="2" layout="grid">
                     <p:outputLabel value="Nombre de usuario:" />
                     <p:outputLabel value="#{request.userPrincipal.name}" />
                     
@@ -35,7 +33,7 @@
                 <p:commandLink value="🔙 Volver al Dashboard" 
                              action="/secure/dashboard.xhtml?faces-redirect=true" 
                              styleClass="p-button-text" />
-            </p:card>
-        </div>
-    </h:body>
-</html>
+			</p:panel>
+		</p:outputPanel>
+	</ui:define>
+</ui:composition>
