@@ -42,12 +42,9 @@
 	                             styleClass="p-button-text" />
 	                
 	                <p:commandButton value="🚪 Cerrar Sesión (Completo)" 
-               			action="#{securityBean.logoutWithToken}" 
+               			action="#{securityBean.logoutWithClientId}" 
                			styleClass="p-button-danger" />
-
-					<p:commandButton value="🚪 Cerrar Sesión (Solo Local)" 
-               			action="#{securityBean.logoutLocalOnly}" 
-               			styleClass="p-button-secondary" />
+               			
 	            </p:panelGrid>
 			</p:panel>
 			
