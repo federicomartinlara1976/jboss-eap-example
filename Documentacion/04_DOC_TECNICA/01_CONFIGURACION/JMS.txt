@@ -1,1 +1,46 @@
- 
+/extension=org.wildfly.extension.messaging-activemq:add
+
+/subsystem=messaging-activemq:add
+
+/subsystem=messaging-activemq/server=default:add(security-enabled=false)
+
+/subsystem=messaging-activemq/server=default:write-attribute(name=persistence-enabled,value=true)
+reload
+
+# Crear Connection Factory
+/subsystem=messaging-activemq/server=default/jms-queue=NotificacionQueue:add(entries=["java:/jms/queue/NotificacionQueue"])
+/subsystem=messaging-activemq/server=default/jms-queue=PedidoQueue:add(entries=["java:/jms/queue/PedidoQueue"])
+
+# Crear Topic para eventos en tiempo real
+/subsystem=messaging-activemq/server=default/jms-topic=EventosTopic:add(entries=["java:/jms/topic/EventosTopic"])
+
+# Verificar la configuración
+/subsystem=messaging-activemq/server=default:read-resource
+
+/subsystem=ejb3:write-attribute(name=default-resource-adapter-name, value=activemq-ra)
+
+# Crear las connection factories
+# Connector HTTP (para conexiones remotas)
+/subsystem=messaging-activemq/server=default/http-connector=http-connector:add(socket-binding=http, endpoint=http-acceptor)
+
+# Connector In-VM (para conexiones locales)
+/subsystem=messaging-activemq/server=default/in-vm-connector=in-vm:add(server-id=0)
+
+# Aceptadores HTTP
+/subsystem=messaging-activemq/server=default/http-acceptor=http-acceptor:add(http-listener=default)
+reload
+
+# Agregar las connection factories
+# Connection Factory para aplicaciones locales (JMS XA)
+/subsystem=messaging-activemq/server=default/pooled-connection-factory=ActivemqConnectionFactory:add(entries=["java:/JmsXA", "java:jboss/DefaultJMSConnectionFactory"], connectors=["in-vm"], transaction=xa)
+
+# Connection Factory para aplicaciones remotas
+/subsystem=messaging-activemq/server=default/pooled-connection-factory=RemoteConnectionFactory:add(entries=["java:jboss/exported/jms/RemoteConnectionFactory"], connectors=["http-connector"])
+
+# Configurar el EJB system para usar las connection factories
+/subsystem=ejb3:write-attribute(name=default-resource-adapter-name, value=ActivemqConnectionFactory)
+
+# Verificar
+/subsystem=messaging-activemq/server=default:read-children-names(child-type=jms-queue)
+
+
