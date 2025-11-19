@@ -3,7 +3,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/templates/template.xhtml">
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/templates/template-secure.xhtml">
 	
 	<ui:define name="content">
 		<p:outputPanel styleClass="dashboard">
@@ -20,32 +20,6 @@
                   	<p:outputLabel value="Roles:" />
                   	<p:outputLabel value="#{request.isUserInRole('admin') ? 'Admin, User' : 'User'}" />
              	</p:panelGrid>
-			</p:panel>
-			
-			<p:panel styleClass="ui-g-6 ui-md-6 ui-lg-6">
-				<f:facet name="header">
-					<i class="pi pi-bars"></i>
-                   	Navegación
-                </f:facet>
-				
-				<p:panelGrid columns="1" layout="grid">
-	                <p:commandLink value="🏠 Mi Perfil" 
-	                             action="/secure/profile.xhtml?faces-redirect=true" 
-	                             styleClass="p-button-text" />
-	                
-	                <p:commandLink value="📊 Dashboard" 
-	                             action="/secure/dashboard.xhtml?faces-redirect=true" 
-	                             styleClass="p-button-text" />
-	                
-	                <p:commandLink value="🏠 Página Principal" 
-	                             action="/index.xhtml?faces-redirect=true" 
-	                             styleClass="p-button-text" />
-	                
-	                <p:commandButton value="🚪 Cerrar Sesión (Completo)" 
-               			action="#{securityBean.logoutWithClientId}" 
-               			styleClass="p-button-danger" />
-               			
-	            </p:panelGrid>
 			</p:panel>
 			
 			<p:panel styleClass="ui-g-12 ui-md-12 ui-lg-12">
