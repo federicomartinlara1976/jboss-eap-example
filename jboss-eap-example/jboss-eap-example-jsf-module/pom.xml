@@ -131,6 +131,16 @@
 	</build>
 	
 	<profiles>
+		<profile>
+            <id>local</id>
+            <activation>
+            	<activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <app.environment>local</app.environment>
+            </properties>
+        </profile>
+	
         <profile>
             <id>dev</id>
             <properties>
