@@ -59,6 +59,13 @@
 											value="🏠 Página Principal"
 											action="index" inmediate="true" />
 									</li>
+									<p:fragment rendered="#{request.isUserInRole('admin')}">
+										<li class="list-group-item">
+											<h:commandLink
+												value="⚙️ Panel de Administración"
+												action="/admin/management.xhtml?faces-redirect=true"/>
+										</li>
+									</p:fragment>
 									<li class="list-group-item">
 										<h:commandLink
 											value="🚪 Cerrar Sesión"
