@@ -1752,7 +1752,8 @@ body {
   .layout-wrapper.menu-layout-static .layout-main {
     margin-left: 235px; }
   .layout-wrapper.menu-layout-static .layout-footer {
-    margin-left: 235px; }
+    margin-left: 235px;
+    width: -webkit-fill-available; }
   .layout-wrapper.menu-layout-static.layout-menu-static-inactive .layout-menu-container {
     margin-left: -235px; }
   .layout-wrapper.menu-layout-static.layout-menu-static-inactive .layout-main, .layout-wrapper.menu-layout-static.layout-menu-static-inactive .layout-footer, .layout-main.full {
