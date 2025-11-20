@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:outputPanel layout="block" styleClass="menu">
+		<p:accordionPanel activeIndex="0">
+			<p:tab title="Navegación">
+				<ul class="list-group">
+					<li class="list-group-item"><h:commandLink
+							value="🏠 Mi Perfil" action="profile" inmediate="true" /></li>
+					<li class="list-group-item"><h:commandLink
+							value="📊 Dashboard" action="secure-dashboard" inmediate="true" />
+					</li>
+					<li class="list-group-item"><h:commandLink
+							value="🏠 Página Principal" action="index" inmediate="true" /></li>
+					<p:fragment rendered="#{request.isUserInRole('admin')}">
+						<li class="list-group-item"><h:commandLink
+								value="⚙️ Panel de Administración"
+								action="/admin/management.xhtml?faces-redirect=true" /></li>
+					</p:fragment>
+					<li class="list-group-item"><h:commandLink
+							value="🚪 Cerrar Sesión"
+							action="#{securityBean.logoutWithClientId}" inmediate="true" />
+					</li>
+				</ul>
+			</p:tab>
+			
+			<p:tab title="JMS">
+				<ul class="list-group">
+					<li class="list-group-item">
+						<i class="pi pi-send" style="color: #10B981;"></i>
+						<h:commandLink
+							value="Enviar un mensaje" action="send-jms" inmediate="true" />
+					</li>
+				</ul>
+			</p:tab>
+
+		</p:accordionPanel>
+	</p:outputPanel>
+
+</ui:composition>
