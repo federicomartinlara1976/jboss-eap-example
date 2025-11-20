@@ -8,20 +8,33 @@
 		<p:accordionPanel activeIndex="0">
 			<p:tab title="Navegación">
 				<ul class="list-group">
-					<li class="list-group-item"><h:commandLink
-							value="🏠 Mi Perfil" action="profile" inmediate="true" /></li>
-					<li class="list-group-item"><h:commandLink
-							value="📊 Dashboard" action="secure-dashboard" inmediate="true" />
+					<li class="list-group-item">
+						<i class="pi pi-user"></i>
+						<h:commandLink
+							value="Mi Perfil" action="profile" inmediate="true" />
 					</li>
-					<li class="list-group-item"><h:commandLink
-							value="🏠 Página Principal" action="index" inmediate="true" /></li>
+					<li class="list-group-item">
+						<i class="pi pi-desktop"></i>
+						<h:commandLink
+							value="Dashboard" action="secure-dashboard" inmediate="true" />
+					</li>
+					<li class="list-group-item">
+						<i class="pi pi-home"></i>
+						<h:commandLink
+							value="Página Principal" action="index" inmediate="true" />
+					</li>
 					<p:fragment rendered="#{request.isUserInRole('admin')}">
-						<li class="list-group-item"><h:commandLink
-								value="⚙️ Panel de Administración"
-								action="/admin/management.xhtml?faces-redirect=true" /></li>
+						<li class="list-group-item">
+							<i class="pi pi-cog"></i>
+							<h:commandLink
+								value="Panel de Administración"
+								action="/admin/management.xhtml?faces-redirect=true" />
+						</li>
 					</p:fragment>
-					<li class="list-group-item"><h:commandLink
-							value="🚪 Cerrar Sesión"
+					<li class="list-group-item">
+						<i class="pi pi-power-off"></i>
+						<h:commandLink
+							value="Cerrar Sesión"
 							action="#{securityBean.logoutWithClientId}" inmediate="true" />
 					</li>
 				</ul>
