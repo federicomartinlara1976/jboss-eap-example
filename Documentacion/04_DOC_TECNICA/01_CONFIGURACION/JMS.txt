@@ -43,4 +43,21 @@ reload
 # Verificar
 /subsystem=messaging-activemq/server=default:read-children-names(child-type=jms-queue)
 
+# Configurar los conectores
+/subsystem=messaging-activemq/server=default/in-vm-connector=in-vm:add(server-id=0)
+
+# Aceptador
+/subsystem=messaging-activemq/server=default/in-vm-acceptor=in-vm:add(server-id=0)
+
+# Para conexiones remotas http
+/subsystem=messaging-activemq/server=default/http-connector=http-connector:add(socket-binding=http, endpoint=http-acceptor)
+/subsystem=messaging-activemq/server=default/http-acceptor=http-acceptor:add(http-listener=default)
+
+# Actualizar la connection factory para utilizar el conector in-vm
+/subsystem=messaging-activemq/server=default/pooled-connection-factory=ActivemqConnectionFactory:write-attribute(name=connectors, value=[in-vm])
+
+# Verificar
+/subsystem=messaging-activemq/server=default:read-children-names(child-type=connector)
+/subsystem=messaging-activemq/server=default:read-children-names(child-type=acceptor)
+
 
