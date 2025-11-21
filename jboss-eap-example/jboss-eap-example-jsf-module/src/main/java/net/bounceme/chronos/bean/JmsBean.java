@@ -9,7 +9,7 @@ import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import net.bounceme.chronos.exceptions.ServiceException;
-import net.bounceme.chronos.jms.JmsService;
+import net.bounceme.chronos.service.JmsService;
 import net.bounceme.chronos.utils.Asserts;
 import net.bounceme.chronos.utils.JsfUtils;
 

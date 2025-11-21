@@ -1,4 +1,4 @@
-package net.bounceme.chronos.jms;
+package net.bounceme.chronos.service;
 
 public interface JmsService {
 

@@ -1,58 +1,24 @@
 package net.bounceme.chronos.service;
 
-import net.bounceme.chronos.entity.Usuario;
-import net.bounceme.chronos.repository.UsuarioRepository;
-import jakarta.ejb.Stateless;
-import jakarta.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 
-@Stateless
-public class UsuarioService {
+import net.bounceme.chronos.entity.Usuario;
 
-    @Inject
-    private UsuarioRepository usuarioRepository;
+public interface UsuarioService {
 
-    public Usuario registrarUsuario(String nombre, String email) {
-        // Validar que el email no existe
-        if (usuarioRepository.buscarPorEmail(email).isPresent()) {
-            throw new IllegalArgumentException("El email ya está registrado: " + email);
-        }
+	Usuario registrarUsuario(String nombre, String email);
 
-        Usuario usuario = new Usuario(nombre, email);
-        return usuarioRepository.crear(usuario);
-    }
+	Optional<Usuario> obtenerUsuario(Long id);
 
-    public Optional<Usuario> obtenerUsuario(Long id) {
-        return usuarioRepository.buscarPorId(id);
-    }
+	List<Usuario> listarUsuarios();
 
-    public List<Usuario> listarUsuarios() {
-        return usuarioRepository.listarTodos();
-    }
+	List<Usuario> buscarUsuarios(String criterio);
 
-    public List<Usuario> buscarUsuarios(String criterio) {
-        return usuarioRepository.buscarPorNombre(criterio);
-    }
+	Usuario actualizarUsuario(Long id, String nuevoNombre, String nuevoEmail);
 
-    public Usuario actualizarUsuario(Long id, String nuevoNombre, String nuevoEmail) {
-        return usuarioRepository.buscarPorId(id)
-                .map(usuario -> {
-                    usuario.setNombre(nuevoNombre);
-                    usuario.setEmail(nuevoEmail);
-                    return usuarioRepository.actualizar(usuario);
-                })
-                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado: " + id));
-    }
+	void desactivarUsuario(Long id);
 
-    public void desactivarUsuario(Long id) {
-        usuarioRepository.buscarPorId(id).ifPresent(usuario -> {
-            usuario.setActivo(false);
-            usuarioRepository.actualizar(usuario);
-        });
-    }
+	long obtenerEstadisticas();
 
-    public long obtenerEstadisticas() {
-        return usuarioRepository.contarUsuariosActivos();
-    }
 }
