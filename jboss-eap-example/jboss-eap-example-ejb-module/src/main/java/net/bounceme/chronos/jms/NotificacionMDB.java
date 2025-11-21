@@ -33,11 +33,10 @@ import java.io.StringReader;
 public class NotificacionMDB implements MessageListener {
 
     @Override
-    public void onMessage(Message message) {
+    public void onMessage(Message msg) {
         try {
-            if (message instanceof TextMessage) {
-                TextMessage textMessage = (TextMessage) message;
-                String messageContent = textMessage.getText();
+            if (msg instanceof TextMessage message) {
+                String messageContent = message.getText();
                 
                 log.infof("📨 [NotificacionMDB] Mensaje recibido: %s", messageContent);
                 
@@ -45,7 +44,7 @@ public class NotificacionMDB implements MessageListener {
                 procesarNotificacion(messageContent);
                 
             } else {
-                log.warn("❌ [NotificacionMDB] Tipo de mensaje no soportado: " + message.getClass().getName());
+                log.warn("❌ [NotificacionMDB] Tipo de mensaje no soportado: " + msg.getClass().getName());
             }
         } catch (JMSException e) {
             log.error("💥 [NotificacionMDB] Error procesando mensaje", e);
