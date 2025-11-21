@@ -133,9 +133,6 @@
 	<profiles>
 		<profile>
             <id>local</id>
-            <activation>
-            	<activeByDefault>true</activeByDefault>
-            </activation>
             <properties>
                 <app.environment>local</app.environment>
             </properties>
@@ -143,6 +140,9 @@
 	
         <profile>
             <id>dev</id>
+            <activation>
+            	<activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
                 <app.environment>dev</app.environment>
             </properties>
