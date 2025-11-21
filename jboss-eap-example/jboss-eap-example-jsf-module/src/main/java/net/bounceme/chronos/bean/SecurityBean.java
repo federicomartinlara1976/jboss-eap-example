@@ -7,9 +7,9 @@ import java.nio.charset.Charset;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.context.ExternalContext;
-import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import lombok.SneakyThrows;
 import lombok.extern.jbosslog.JBossLog;
 import net.bounceme.chronos.config.AppConfig;
 import net.bounceme.chronos.utils.JsfUtils;
@@ -28,7 +28,7 @@ public class SecurityBean implements Serializable {
 	 * Logout usando client_id - Funciona sin id_token Keycloak mostrará su página
 	 * de logout nativa
 	 */
-	public void logoutWithClientId() throws IOException {
+	public void logoutWithClientId() {
 		ExternalContext externalContext = JsfUtils.getExternalContext();
 
 		String username = externalContext.getUserPrincipal() != null ? externalContext.getUserPrincipal().getName()
@@ -68,7 +68,8 @@ public class SecurityBean implements Serializable {
 	}
 
 	// Método de logout simple (solo sesión local)
-	public void logoutLocalOnly() throws IOException {
+	@SneakyThrows(IOException.class)
+	public void logoutLocalOnly() {
 		ExternalContext externalContext = JsfUtils.getExternalContext();
 		externalContext.invalidateSession();
 		externalContext.redirect(appConfig.getJsfBaseUrl());
