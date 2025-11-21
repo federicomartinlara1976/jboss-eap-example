@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 
-import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.context.ExternalContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -15,7 +15,7 @@ import net.bounceme.chronos.config.AppConfig;
 import net.bounceme.chronos.utils.JsfUtils;
 
 @Named
-@RequestScoped
+@SessionScoped
 @JBossLog
 public class SecurityBean implements Serializable {
 
