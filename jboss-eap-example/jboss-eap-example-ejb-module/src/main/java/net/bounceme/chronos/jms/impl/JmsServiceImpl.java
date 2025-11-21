@@ -1,4 +1,4 @@
-package net.bounceme.chronos.jms;
+package net.bounceme.chronos.jms.impl;
 
 import jakarta.annotation.Resource;
 import jakarta.ejb.Stateless;
@@ -14,6 +14,7 @@ import jakarta.json.Json;
 import lombok.SneakyThrows;
 import lombok.extern.jbosslog.JBossLog;
 import net.bounceme.chronos.exceptions.ServiceException;
+import net.bounceme.chronos.jms.JmsService;
 
 @Stateless
 @JBossLog
