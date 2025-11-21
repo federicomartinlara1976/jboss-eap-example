@@ -21,6 +21,8 @@ public class SecurityBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	private static final String URL_LOGOUT = "%s/realms/%s/protocol/openid-connect/logout?client_id=%s&post_logout_redirect_uri=%s";
+
 	@Inject
 	private AppConfig appConfig;
 
@@ -62,9 +64,8 @@ public class SecurityBean implements Serializable {
 	private String buildKeycloakLogoutUrlWithClientId() {
 		String redirectUri = URLEncoder.encode(appConfig.getJsfBaseUrl(), Charset.defaultCharset());
 
-		return appConfig.getKeycloakBaseUrl() + "/realms/" + appConfig.getKeycloakRealm()
-				+ "/protocol/openid-connect/logout" + "?client_id=" + appConfig.getKeycloakClientId()
-				+ "&post_logout_redirect_uri=" + redirectUri;
+		return String.format(URL_LOGOUT, appConfig.getKeycloakBaseUrl(), appConfig.getKeycloakRealm(),
+				appConfig.getKeycloakClientId(), redirectUri);
 	}
 
 	// Método de logout simple (solo sesión local)
