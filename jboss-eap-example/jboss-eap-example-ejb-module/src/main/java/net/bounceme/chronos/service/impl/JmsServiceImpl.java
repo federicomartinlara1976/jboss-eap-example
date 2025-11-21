@@ -16,7 +16,7 @@ import lombok.extern.jbosslog.JBossLog;
 import net.bounceme.chronos.exceptions.ServiceException;
 import net.bounceme.chronos.service.JmsService;
 
-@Stateless
+@Stateless(name = "JmsService")
 @JBossLog
 public class JmsServiceImpl implements JmsService {
 

@@ -1,14 +1,16 @@
-package net.bounceme.chronos.ejb;
+package net.bounceme.chronos.service.impl;
 
 import jakarta.ejb.Stateless;
 import lombok.extern.jbosslog.JBossLog;
 import net.bounceme.chronos.dto.MensajeDTO;
+import net.bounceme.chronos.service.HolaMundoEJB;
 
-@Stateless
+@Stateless(name = "HolaMundoEJB")
 @JBossLog
-public class HolaMundoEJB {
+public class HolaMundoEJBImpl implements HolaMundoEJB {
     
-    public MensajeDTO saludoEJB() {
+    @Override
+	public MensajeDTO saludoEJB() {
         log.info("EJB: Ejecutando saludoEJB");
         
         return MensajeDTO.builder()
@@ -16,7 +18,8 @@ public class HolaMundoEJB {
         		.build();
     }
     
-    public MensajeDTO saludoEJB(String nombre) {
+    @Override
+	public MensajeDTO saludoEJB(String nombre) {
     	log.info("EJB: Ejecutando saludoEJB");
         
         return MensajeDTO.builder()

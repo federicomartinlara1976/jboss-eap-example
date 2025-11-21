@@ -8,7 +8,7 @@ import jakarta.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 
-@Stateless
+@Stateless(name = "UsuarioService")
 public class UsuarioServiceImpl implements UsuarioService {
 
     @Inject

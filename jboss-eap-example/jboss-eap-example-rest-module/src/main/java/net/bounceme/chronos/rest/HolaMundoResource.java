@@ -7,7 +7,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import net.bounceme.chronos.ejb.HolaMundoEJB;
+import net.bounceme.chronos.service.HolaMundoEJB;
 
 @Path("/public/hola")
 public class HolaMundoResource {
