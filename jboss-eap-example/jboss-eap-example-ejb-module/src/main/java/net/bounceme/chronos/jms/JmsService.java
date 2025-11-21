@@ -39,7 +39,8 @@ public class JmsService {
 				Session session = connection.createSession();
 				MessageProducer producer = session.createProducer(notificacionQueue)) {
 
-			TextMessage textMessage = session.createTextMessage(mensaje);
+			String jsonMensaje = crearMensajeNotificacion("TEXTO", "DESCONOCIDO", mensaje);
+			TextMessage textMessage = session.createTextMessage(jsonMensaje);
 			producer.send(textMessage);
 		} catch (JMSException e) {
 			log.error("💥 [JmsService] Error enviando mensaje a cola", e);
