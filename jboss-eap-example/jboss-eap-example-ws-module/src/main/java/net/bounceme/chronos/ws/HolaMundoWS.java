@@ -1,9 +1,10 @@
 package net.bounceme.chronos.ws;
 
-import net.bounceme.chronos.ejb.HolaMundoEJB;
 import jakarta.inject.Inject;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
+import net.bounceme.chronos.dto.MensajeDTO;
+import net.bounceme.chronos.ejb.HolaMundoEJB;
 
 @WebService
 public class HolaMundoWS {
@@ -12,12 +13,12 @@ public class HolaMundoWS {
     private HolaMundoEJB holaMundoEJB;
     
     @WebMethod
-    public String saludar() {
+    public MensajeDTO saludar() {
         return holaMundoEJB.saludoEJB();
     }
     
     @WebMethod
-    public String saludarPersonalizado(String nombre) {
-        return holaMundoEJB.saludoPersonalizadoEJB(nombre);
+    public MensajeDTO saludarPersonalizado(String nombre) {
+        return holaMundoEJB.saludoEJB(nombre);
     }
 }

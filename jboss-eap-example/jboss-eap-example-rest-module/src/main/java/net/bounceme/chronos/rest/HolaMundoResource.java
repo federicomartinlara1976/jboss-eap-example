@@ -1,6 +1,5 @@
 package net.bounceme.chronos.rest;
 
-import net.bounceme.chronos.ejb.HolaMundoEJB;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -8,8 +7,9 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import net.bounceme.chronos.ejb.HolaMundoEJB;
 
-@Path("/hola")
+@Path("/public/hola")
 public class HolaMundoResource {
     
     @Inject
@@ -18,15 +18,13 @@ public class HolaMundoResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getSaludo() {
-        String mensaje = holaMundoEJB.saludoEJB();
-        return Response.ok("{\"mensaje\": \"" + mensaje + "\"}").build();
+        return Response.ok(holaMundoEJB.saludoEJB()).build();
     }
     
     @GET
     @Path("/{nombre}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getSaludoPersonalizado(@PathParam("nombre") String nombre) {
-        String mensaje = holaMundoEJB.saludoPersonalizadoEJB(nombre);
-        return Response.ok("{\"mensaje\": \"" + mensaje + "\"}").build();
+    	return Response.ok(holaMundoEJB.saludoEJB(nombre)).build();
     }
 }

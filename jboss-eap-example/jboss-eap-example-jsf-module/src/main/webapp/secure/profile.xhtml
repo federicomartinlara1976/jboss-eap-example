@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/templates/template-secure.xhtml">
+	
+	<ui:define name="content">
+		<p:outputPanel styleClass="dashboard">
+			<p:panel styleClass="ui-g-12 ui-md-12 ui-lg-12">
+				<f:facet name="header">
+					<i class="pi pi-user"></i>
+                    Mi Perfil
+                </f:facet>
+				
+				<p:panelGrid columns="2" layout="grid">
+                    <p:outputLabel value="Nombre de usuario:" />
+                    <p:outputLabel value="#{request.userPrincipal.name}" />
+                    
+                    <p:outputLabel value="Roles:" />
+                    <p:outputLabel>
+                        <p:chip label="user" rendered="#{request.isUserInRole('user')}" />
+                        <p:chip label="admin" rendered="#{request.isUserInRole('admin')}" 
+                               styleClass="p-chip-success" />
+                    </p:outputLabel>
+                    
+                    <p:outputLabel value="Sesión segura:" />
+                    <p:outputLabel value="✅ Protegida por Keycloak OIDC" />
+                </p:panelGrid>
+                
+                <p:separator />
+                
+                <p:commandLink value="🔙 Volver al Dashboard" 
+                             action="/secure/dashboard.xhtml?faces-redirect=true" 
+                             styleClass="p-button-text" />
+			</p:panel>
+		</p:outputPanel>
+	</ui:define>
+</ui:composition>

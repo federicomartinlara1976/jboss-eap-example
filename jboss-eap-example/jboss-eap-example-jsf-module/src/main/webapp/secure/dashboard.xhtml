@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/templates/template-secure.xhtml">
+	
+	<ui:define name="content">
+		<p:outputPanel styleClass="dashboard">
+			<p:panel styleClass="ui-g-6 ui-md-6 ui-lg-6">
+				<f:facet name="header">
+					<i class="pi pi-shield"></i>
+                    Dashboard Seguro
+                </f:facet>
+				
+				<p:panelGrid columns="2" styleClass="p-nogrid">
+                	<p:outputLabel value="Usuario autenticado:" />
+                  	<p:outputLabel value="#{request.userPrincipal.name}" />
+                     
+                  	<p:outputLabel value="Roles:" />
+                  	<p:outputLabel value="#{request.isUserInRole('admin') ? 'Admin, User' : 'User'}" />
+             	</p:panelGrid>
+			</p:panel>
+			
+			<p:panel styleClass="ui-g-6 ui-md-6 ui-lg-6">
+				<f:facet name="header">
+					<i class="pi pi-chart-bar"></i>
+                  	Información del Sistema
+                </f:facet>
+				
+				<p:panelGrid columns="2" layout="grid">
+		            <p:outputLabel value="Usuario:" />
+		            <p:outputLabel value="#{request.userPrincipal.name}" />
+		            
+		            <p:outputLabel value="Autenticado:" />
+		            <p:outputLabel value="#{request.userPrincipal != null ? '✅ Sí' : '❌ No'}" />
+		            
+		            <p:outputLabel value="Es Admin:" />
+		            <p:outputLabel value="#{request.isUserInRole('admin') ? '✅ Sí' : '❌ No'}" />
+		            
+		            <p:outputLabel value="Es User:" />
+		            <p:outputLabel value="#{request.isUserInRole('user') ? '✅ Sí' : '❌ No'}" />
+              	</p:panelGrid>
+			</p:panel>
+			
+			<p:panel styleClass="ui-g-12 ui-md-12 ui-lg-12" rendered="#{request.isUserInRole('admin')}">
+				<f:facet name="header">
+					<i class="pi pi-cog"></i>
+                  	Herramientas de Administración
+                </f:facet>
+				
+				<p>Bienvenido, administrador. Tienes acceso a funciones especiales.</p>
+			</p:panel>
+		</p:outputPanel>
+	</ui:define>
+</ui:composition>

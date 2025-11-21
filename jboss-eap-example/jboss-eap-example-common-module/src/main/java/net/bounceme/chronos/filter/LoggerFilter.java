@@ -1,15 +1,19 @@
 package net.bounceme.chronos.filter;
 
-import jakarta.servlet.*;
-import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Date;
 
-import org.jboss.logging.Logger;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.jbosslog.JBossLog;
 
+@JBossLog
 public class LoggerFilter implements Filter {
-    
-    private static final Logger logger = Logger.getLogger(LoggerFilter.class);
     
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, 
@@ -23,25 +27,25 @@ public class LoggerFilter implements Filter {
         
         long startTime = System.currentTimeMillis();
         
-        logger.infof(">>> [INICIO] %s - IP: %s - Método: %s - URL: %s", 
-                    new Date(), ip, method, url);
+        log.infof(">>> [INICIO] %s - Agent: %s, IP: %s - Método: %s - URL: %s", 
+                    new Date(), userAgent, ip, method, url);
         
         chain.doFilter(request, response);
         
         long endTime = System.currentTimeMillis();
         long duration = endTime - startTime;
         
-        logger.infof("<<< [FIN] %s - URL: %s - Tiempo: %d ms", 
+        log.infof("<<< [FIN] %s - URL: %s - Tiempo: %d ms", 
                     new Date(), url, duration);
     }
     
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        logger.info("LoggerFilter inicializado");
+        log.info("LoggerFilter inicializado");
     }
     
     @Override
     public void destroy() {
-        logger.info("LoggerFilter destruido");
+        log.info("LoggerFilter destruido");
     }
 }
