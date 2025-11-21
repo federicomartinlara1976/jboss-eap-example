@@ -1,8 +1,5 @@
 package net.bounceme.chronos.jms;
 
-import lombok.SneakyThrows;
-import net.bounceme.chronos.exceptions.ServiceException;
-
 public interface JmsService {
 
 	void enviarMensaje(String mensaje);
