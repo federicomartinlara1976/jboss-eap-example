@@ -70,7 +70,7 @@ public class SecurityBean implements Serializable {
 
 	// Método de logout simple (solo sesión local)
 	@SneakyThrows(IOException.class)
-	public void logoutLocalOnly() {
+	private void logoutLocalOnly() {
 		ExternalContext externalContext = JsfUtils.getExternalContext();
 		externalContext.invalidateSession();
 		externalContext.redirect(appConfig.getJsfBaseUrl());
