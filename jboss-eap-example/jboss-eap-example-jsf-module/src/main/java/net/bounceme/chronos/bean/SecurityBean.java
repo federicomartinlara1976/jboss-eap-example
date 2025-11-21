@@ -3,6 +3,7 @@ package net.bounceme.chronos.bean;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.context.ExternalContext;
@@ -66,7 +67,7 @@ public class SecurityBean implements Serializable {
      */
     private String buildKeycloakLogoutUrlWithClientId() {
         String redirectUri = URLEncoder.encode(
-            appConfig.getJsfBaseUrl());
+            appConfig.getJsfBaseUrl(), Charset.defaultCharset());
         
         return appConfig.getKeycloakBaseUrl() + "/realms/" + appConfig.getKeycloakRealm() + "/protocol/openid-connect/logout" +
                "?client_id=" + appConfig.getKeycloakClientId() +

@@ -13,10 +13,13 @@ import jakarta.jms.Topic;
 import jakarta.json.Json;
 import lombok.SneakyThrows;
 import lombok.extern.jbosslog.JBossLog;
+import net.bounceme.chronos.exceptions.ServiceException;
 
 @Stateless
 @JBossLog
 public class JmsService {
+
+	private static final String TIMESTAMP = "timestamp";
 
 	@Resource(lookup = "java:/jms/queue/NotificacionQueue")
 	private Queue notificacionQueue;
@@ -30,7 +33,7 @@ public class JmsService {
 	@Resource(lookup = "java:/JmsXA")
 	private ConnectionFactory connectionFactory;
 
-	@SneakyThrows
+	@SneakyThrows(ServiceException.class)
 	public void enviarMensaje(String mensaje) {
 		try (Connection connection = connectionFactory.createConnection();
 				Session session = connection.createSession();
@@ -40,7 +43,7 @@ public class JmsService {
 			producer.send(textMessage);
 		} catch (JMSException e) {
 			log.error("💥 [JmsService] Error enviando mensaje a cola", e);
-            throw new RuntimeException("Error enviando mensaje JMS", e);
+            throw new ServiceException("Error enviando mensaje JMS", e);
 		}
 	}
 
@@ -68,6 +71,7 @@ public class JmsService {
 		enviarMensajeTopic(eventosTopic, mensajeJson, "EVENTO");
 	}
 
+	@SneakyThrows(ServiceException.class)
 	private void enviarMensajeCola(Queue queue, String mensaje, String tipo) {
 		try (Connection connection = connectionFactory.createConnection();
 				Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
@@ -83,10 +87,11 @@ public class JmsService {
 
 		} catch (JMSException e) {
 			log.error("💥 [JmsService] Error enviando mensaje a cola", e);
-			throw new RuntimeException("Error enviando mensaje JMS", e);
+			throw new ServiceException("Error enviando mensaje JMS", e);
 		}
 	}
 
+	@SneakyThrows(ServiceException.class)
 	private void enviarMensajeTopic(Topic topic, String mensaje, String tipo) {
 		try (Connection connection = connectionFactory.createConnection();
 				Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
@@ -102,22 +107,22 @@ public class JmsService {
 
 		} catch (JMSException e) {
 			log.error("💥 [JmsService] Error publicando evento a topic", e);
-			throw new RuntimeException("Error publicando evento JMS", e);
+			throw new ServiceException("Error publicando evento JMS", e);
 		}
 	}
 
 	private String crearMensajeNotificacion(String tipo, String destinatario, String contenido) {
 		return Json.createObjectBuilder().add("tipo", tipo).add("destinatario", destinatario)
-				.add("contenido", contenido).add("timestamp", System.currentTimeMillis()).build().toString();
+				.add("contenido", contenido).add(TIMESTAMP, System.currentTimeMillis()).build().toString();
 	}
 
 	private String crearMensajePedido(String pedidoId, String usuario, double total) {
 		return Json.createObjectBuilder().add("pedidoId", pedidoId).add("usuario", usuario).add("total", total)
-				.add("timestamp", System.currentTimeMillis()).build().toString();
+				.add(TIMESTAMP, System.currentTimeMillis()).build().toString();
 	}
 
 	private String crearMensajeEvento(String tipoEvento, String usuario, String detalles) {
 		return Json.createObjectBuilder().add("tipoEvento", tipoEvento).add("usuario", usuario)
-				.add("detalles", detalles).add("timestamp", System.currentTimeMillis()).build().toString();
+				.add("detalles", detalles).add(TIMESTAMP, System.currentTimeMillis()).build().toString();
 	}
 }
