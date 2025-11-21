@@ -1,75 +1,34 @@
 package net.bounceme.chronos.repository;
 
-import net.bounceme.chronos.entity.Producto;
-import jakarta.ejb.Stateless;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-@Stateless
-public class ProductoRepository {
+import net.bounceme.chronos.entity.Producto;
 
-    @PersistenceContext(unitName = "miPU")
-    private EntityManager em;
+public interface ProductoRepository {
 
-    // CRUD básico
-    public Producto crear(Producto producto) {
-        em.persist(producto);
-        return producto;
-    }
+	// CRUD básico
+	Producto crear(Producto producto);
 
-    public Optional<Producto> buscarPorId(Long id) {
-        return Optional.ofNullable(em.find(Producto.class, id));
-    }
+	Optional<Producto> buscarPorId(Long id);
 
-    public List<Producto> listarTodos() {
-        return em.createQuery("SELECT p FROM Producto p ORDER BY p.nombre", Producto.class)
-                .getResultList();
-    }
+	List<Producto> listarTodos();
 
-    public Producto actualizar(Producto producto) {
-        return em.merge(producto);
-    }
+	Producto actualizar(Producto producto);
 
-    public void eliminar(Long id) {
-        buscarPorId(id).ifPresent(producto -> em.remove(producto));
-    }
+	void eliminar(Long id);
 
-    // Consultas específicas
-    public List<Producto> buscarPorNombre(String nombre) {
-        TypedQuery<Producto> query = em.createQuery(
-            "SELECT p FROM Producto p WHERE p.nombre LIKE :nombre ORDER BY p.nombre", Producto.class);
-        query.setParameter("nombre", "%" + nombre + "%");
-        return query.getResultList();
-    }
+	// Consultas específicas
+	List<Producto> buscarPorNombre(String nombre);
 
-    public List<Producto> buscarPorRangoPrecio(BigDecimal min, BigDecimal max) {
-        TypedQuery<Producto> query = em.createQuery(
-            "SELECT p FROM Producto p WHERE p.precio BETWEEN :min AND :max ORDER BY p.precio", Producto.class);
-        query.setParameter("min", min);
-        query.setParameter("max", max);
-        return query.getResultList();
-    }
+	List<Producto> buscarPorRangoPrecio(BigDecimal min, BigDecimal max);
 
-    public List<Producto> buscarProductosConStock() {
-        return em.createQuery(
-            "SELECT p FROM Producto p WHERE p.stock > 0 AND p.activo = true ORDER BY p.nombre", Producto.class)
-            .getResultList();
-    }
+	List<Producto> buscarProductosConStock();
 
-    public long contarProductosActivos() {
-        return em.createQuery("SELECT COUNT(p) FROM Producto p WHERE p.activo = true", Long.class)
-                .getSingleResult();
-    }
+	long contarProductosActivos();
 
-    // Métodos de negocio
-    public void actualizarStock(Long productoId, Integer nuevoStock) {
-        buscarPorId(productoId).ifPresent(producto -> {
-            producto.setStock(nuevoStock);
-            em.merge(producto);
-        });
-    }
+	// Métodos de negocio
+	void actualizarStock(Long productoId, Integer nuevoStock);
+
 }
