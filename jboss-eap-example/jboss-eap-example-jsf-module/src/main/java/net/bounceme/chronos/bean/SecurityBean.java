@@ -13,7 +13,7 @@ import jakarta.inject.Named;
 import lombok.SneakyThrows;
 import lombok.extern.jbosslog.JBossLog;
 import net.bounceme.chronos.config.AppConfig;
-import net.bounceme.chronos.utils.AssertException;
+import net.bounceme.chronos.exceptions.AssertException;
 import net.bounceme.chronos.utils.Asserts;
 
 @Named
