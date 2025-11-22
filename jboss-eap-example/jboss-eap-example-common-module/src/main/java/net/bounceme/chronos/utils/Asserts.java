@@ -1,6 +1,7 @@
 package net.bounceme.chronos.utils;
 
 import lombok.experimental.UtilityClass;
+import net.bounceme.chronos.exceptions.AssertException;
 
 @UtilityClass
 public class Asserts {

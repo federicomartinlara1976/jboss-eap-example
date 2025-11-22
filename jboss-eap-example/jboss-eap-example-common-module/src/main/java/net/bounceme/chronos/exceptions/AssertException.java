@@ -1,4 +1,4 @@
-package net.bounceme.chronos.utils;
+package net.bounceme.chronos.exceptions;
 
 import lombok.Getter;
 

@@ -200,3 +200,8 @@ footer span {
 .logo.text-left {
 	color: dimgrey;
 }
+
+.pi {
+	margin-right: .5rem;
+	color: #10B981;
+}

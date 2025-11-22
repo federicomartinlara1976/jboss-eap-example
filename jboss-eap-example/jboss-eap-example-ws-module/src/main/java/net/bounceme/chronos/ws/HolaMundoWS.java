@@ -4,7 +4,7 @@ import jakarta.inject.Inject;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
 import net.bounceme.chronos.dto.MensajeDTO;
-import net.bounceme.chronos.ejb.HolaMundoEJB;
+import net.bounceme.chronos.service.HolaMundoEJB;
 
 @WebService
 public class HolaMundoWS {

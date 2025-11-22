@@ -1,4 +1,4 @@
-package net.bounceme.chronos.service;
+package net.bounceme.chronos.service.impl;
 
 import java.math.BigDecimal;
 

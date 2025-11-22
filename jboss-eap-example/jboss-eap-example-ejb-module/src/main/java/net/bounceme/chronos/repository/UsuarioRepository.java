@@ -1,65 +1,33 @@
 package net.bounceme.chronos.repository;
 
-import net.bounceme.chronos.entity.Usuario;
-import jakarta.ejb.Stateless;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
-@Stateless
-public class UsuarioRepository {
+import net.bounceme.chronos.entity.Usuario;
 
-    @PersistenceContext(unitName = "miPU")
-    private EntityManager em;
+public interface UsuarioRepository {
 
-    // Create
-    public Usuario crear(Usuario usuario) {
-        em.persist(usuario);
-        return usuario;
-    }
+	// Create
+	Usuario crear(Usuario usuario);
 
-    // Read
-    public Optional<Usuario> buscarPorId(Long id) {
-        return Optional.ofNullable(em.find(Usuario.class, id));
-    }
+	// Read
+	Optional<Usuario> buscarPorId(Long id);
 
-    public List<Usuario> listarTodos() {
-        return em.createNamedQuery("Usuario.findAll", Usuario.class)
-                .getResultList();
-    }
+	List<Usuario> listarTodos();
 
-    public Optional<Usuario> buscarPorEmail(String email) {
-        TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findByEmail", Usuario.class);
-        query.setParameter("email", email);
-        return query.getResultStream().findFirst();
-    }
+	Optional<Usuario> buscarPorEmail(String email);
 
-    public List<Usuario> buscarPorNombre(String nombre) {
-        TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findByNombre", Usuario.class);
-        query.setParameter("nombre", "%" + nombre + "%");
-        return query.getResultList();
-    }
+	List<Usuario> buscarPorNombre(String nombre);
 
-    // Update
-    public Usuario actualizar(Usuario usuario) {
-        return em.merge(usuario);
-    }
+	// Update
+	Usuario actualizar(Usuario usuario);
 
-    // Delete
-    public void eliminar(Long id) {
-        buscarPorId(id).ifPresent(usuario -> em.remove(usuario));
-    }
+	// Delete
+	void eliminar(Long id);
 
-    // Métodos específicos de negocio
-    public Long contarUsuariosActivos() {
-        return em.createQuery("SELECT COUNT(u) FROM Usuario u WHERE u.activo = true", Long.class)
-                .getSingleResult();
-    }
+	// Métodos específicos de negocio
+	Long contarUsuariosActivos();
 
-    public List<Usuario> listarUsuariosActivos() {
-        return em.createQuery("SELECT u FROM Usuario u WHERE u.activo = true ORDER BY u.nombre", Usuario.class)
-                .getResultList();
-    }
+	List<Usuario> listarUsuariosActivos();
+
 }

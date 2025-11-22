@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/templates/template-secure.xhtml">
+	
+	<ui:define name="content">
+		<p:outputPanel styleClass="dashboard">
+
+			<!-- Formulario de envío jms -->
+			<p:panel styleClass="ui-g-6 ui-md-6 ui-lg-6">
+				<f:facet name="header">
+					<i class="pi pi-send"></i>
+                   Envío de JMS
+               </f:facet>
+
+				<div class="ui-g ui-fluid">
+					<div class="ui-g-12">
+						<p:outputLabel for="mensaje" value="Mensaje:" />
+						<p:inputText id="mensaje" value="#{jmsBean.mensaje}"
+							placeholder="Escribe el mensaje..." 
+							widgetVar="mensajeWidget" />
+					</div>
+
+					<div class="ui-g-12">
+						<p:commandButton id="sendBtn" value="Enviar"
+							actionListener="#{jmsBean.enviar}" process="@form"
+							ajax="true" icon="pi pi-send" update="messages"
+							styleClass="p-button-primary" />
+					</div>
+				</div>
+
+			</p:panel>
+			
+			<!-- Panel de información del sistema -->
+			<p:panel styleClass="ui-g-6 ui-md-6 ui-lg-6">
+				<f:facet name="header">
+					<i class="pi pi-info-circle"></i>
+                    Información del Sistema
+                </f:facet>
+
+				<p:panelGrid columns="2" layout="grid" styleClass="p-fluid">
+					<p:outputLabel value="Bean cargado:" />
+					<p:outputLabel value="#{jmsBean != null ? '✅ Sí' : '❌ No'}" />
+
+					<p:outputLabel value="EJB inyectado:" />
+					<p:outputLabel
+						value="#{jmsBean.jmsService != null ? '✅ Sí' : '❌ No'}" />
+
+					<p:outputLabel value="PrimeFaces:" />
+					<p:outputLabel value="✅ v13.0.0" />
+				</p:panelGrid>
+			</p:panel>
+			
+		</p:outputPanel>
+	</ui:define>
+</ui:composition>
