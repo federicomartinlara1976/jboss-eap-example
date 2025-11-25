@@ -6,6 +6,7 @@ import jakarta.jms.Connection;
 import jakarta.jms.ConnectionFactory;
 import jakarta.jms.JMSException;
 import jakarta.jms.MessageProducer;
+import jakarta.jms.ObjectMessage;
 import jakarta.jms.Queue;
 import jakarta.jms.Session;
 import jakarta.jms.TextMessage;
@@ -13,6 +14,7 @@ import jakarta.jms.Topic;
 import jakarta.json.Json;
 import lombok.SneakyThrows;
 import lombok.extern.jbosslog.JBossLog;
+import net.bounceme.chronos.dto.RegisterTimeDTO;
 import net.bounceme.chronos.exceptions.ServiceException;
 import net.bounceme.chronos.service.JmsService;
 
@@ -24,6 +26,9 @@ public class JmsServiceImpl implements JmsService {
 
 	@Resource(lookup = "java:/jms/queue/NotificacionQueue")
 	private Queue notificacionQueue;
+	
+	@Resource(lookup = "java:/jms/queue/RegisterTimeQueue")
+	private Queue registerTimeQueue;
 
 	@Resource(lookup = "java:/jms/queue/PedidoQueue")
 	private Queue pedidoQueue;
@@ -130,5 +135,24 @@ public class JmsServiceImpl implements JmsService {
 	private String crearMensajeEvento(String tipoEvento, String usuario, String detalles) {
 		return Json.createObjectBuilder().add("tipoEvento", tipoEvento).add("usuario", usuario)
 				.add("detalles", detalles).add(TIMESTAMP, System.currentTimeMillis()).build().toString();
+	}
+
+	@Override
+	public void enviarRegistroTiempo(RegisterTimeDTO registerTimeDTO) {
+		try (Connection connection = connectionFactory.createConnection();
+				Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+				MessageProducer producer = session.createProducer(registerTimeQueue)) {
+
+			ObjectMessage objectMessage = session.createObjectMessage(RegisterTimeDTO.class);
+			objectMessage.setObject(registerTimeDTO);
+
+			producer.send(objectMessage);
+
+			log.infof("📤 [JmsService] Mensaje %s enviado a cola", registerTimeDTO.toString());
+
+		} catch (JMSException e) {
+			log.error("💥 [JmsService] Error enviando mensaje a cola", e);
+			throw new ServiceException("Error enviando mensaje JMS", e);
+		}
 	}
 }
