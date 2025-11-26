@@ -35,6 +35,9 @@ public class JmsServiceImpl implements JmsService {
 
 	@Resource(lookup = "java:/jms/topic/EventosTopic")
 	private Topic eventosTopic;
+	
+	@Resource(lookup = "java:/jms/topic/RegisterTimeTopic")
+    private Topic registerTimeTopic;
 
 	@Resource(lookup = "java:/JmsXA")
 	private ConnectionFactory connectionFactory;
@@ -141,17 +144,18 @@ public class JmsServiceImpl implements JmsService {
 	public void enviarRegistroTiempo(RegisterTimeDTO registerTimeDTO) {
 		try (Connection connection = connectionFactory.createConnection();
 				Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-				MessageProducer producer = session.createProducer(registerTimeQueue)) {
+				MessageProducer producer = session.createProducer(registerTimeTopic)) {
 
 			ObjectMessage objectMessage = session.createObjectMessage(RegisterTimeDTO.class);
 			objectMessage.setObject(registerTimeDTO);
+			objectMessage.setLongProperty("Timestamp", System.currentTimeMillis());
 
 			producer.send(objectMessage);
 
-			log.infof("📤 [JmsService] Mensaje %s enviado a cola", registerTimeDTO.toString());
+			log.infof("📤 [JmsService] Mensaje %s enviado a topic", registerTimeDTO.toString());
 
 		} catch (JMSException e) {
-			log.error("💥 [JmsService] Error enviando mensaje a cola", e);
+			log.error("💥 [JmsService] Error enviando mensaje a topic", e);
 			throw new ServiceException("Error enviando mensaje JMS", e);
 		}
 	}

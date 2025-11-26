@@ -1,7 +1,6 @@
 package net.bounceme.chronos.dto;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +19,7 @@ public class RegisterTimeDTO implements Serializable {
 
 	private String usuario;
 	
-	private Date hora;
+	private String fechaHora;
 	
 	private String tipo;
 }

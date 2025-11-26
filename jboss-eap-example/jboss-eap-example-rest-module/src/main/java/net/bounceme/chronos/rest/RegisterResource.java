@@ -22,7 +22,7 @@ public class RegisterResource {
     private JmsService jmsService;
 
 	@POST
-	@Path("/user")
+	@Path("/registerTime")
 	@RolesAllowed("user")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)

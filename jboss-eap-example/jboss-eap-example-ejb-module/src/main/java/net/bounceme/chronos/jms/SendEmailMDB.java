@@ -29,16 +29,16 @@ import net.bounceme.chronos.dto.RegisterTimeDTO;
 	        ),
 	        @ActivationConfigProperty(
 	            propertyName = "subscriptionName",
-	            propertyValue = "RegisterTimeSubscription"
+	            propertyValue = "SendEmailSubscription"
 	        ),
 	        @ActivationConfigProperty(
 	            propertyName = "clientId",
-	            propertyValue = "RegisterTimeClient"
+	            propertyValue = "SendEmailClient"
 	        )
 	    }
 	)
 @JBossLog
-public class RegisterTimeMDB implements MessageListener {
+public class SendEmailMDB implements MessageListener {
 
     @Override
     public void onMessage(Message msg) {
@@ -46,20 +46,20 @@ public class RegisterTimeMDB implements MessageListener {
             if (msg instanceof ObjectMessage message) {
                 RegisterTimeDTO messageContent = message.getBody(RegisterTimeDTO.class);
                 
-                log.infof("📨 [RegisterTimeMDB] Mensaje recibido: %s", messageContent.toString());
+                log.infof("📨 [SendEmailMDB] Mensaje recibido: %s", messageContent.toString());
                 
                 // Procesar el mensaje JSON
                 procesarRegistro(messageContent);
                 
             } else {
-                log.warn("❌ [RegisterTimeMDB] Tipo de mensaje no soportado: " + msg.getClass().getName());
+                log.warn("❌ [SendEmailMDB] Tipo de mensaje no soportado: " + msg.getClass().getName());
             }
         } catch (JMSException e) {
-            log.error("💥 [RegisterTimeMDB] Error procesando mensaje", e);
+            log.error("💥 [SendEmailMDB] Error procesando mensaje", e);
         }
     }
     
     private void procesarRegistro(RegisterTimeDTO registerTimeDTO) {
-    	log.infof("📨 [RegisterTimeMDB] Registrando: %s", registerTimeDTO.toString());
+    	log.infof("📨 [SendEmailMDB] Enviando email a: %s", registerTimeDTO.getUsuario());
     }
 }
