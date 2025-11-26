@@ -62,4 +62,7 @@ reload
 /subsystem=messaging-activemq/server=default:read-children-names(child-type=connector)
 /subsystem=messaging-activemq/server=default:read-children-names(child-type=acceptor)
 
+# Activar las estadísticas
+/subsystem=messaging-activemq/server=default:write-attribute(name=statistics-enabled,value=true)
+
 
