@@ -1,10 +1,13 @@
 package net.bounceme.chronos.service.impl;
 
+import java.io.Serializable;
+
 import jakarta.annotation.Resource;
 import jakarta.ejb.Stateless;
 import jakarta.jms.Connection;
 import jakarta.jms.ConnectionFactory;
 import jakarta.jms.JMSException;
+import jakarta.jms.Message;
 import jakarta.jms.MessageProducer;
 import jakarta.jms.ObjectMessage;
 import jakarta.jms.Queue;
@@ -51,8 +54,12 @@ public class JmsServiceImpl implements JmsService {
 				Session session = connection.createSession();
 				MessageProducer producer = session.createProducer(notificacionQueue)) {
 
-			String jsonMensaje = crearMensajeNotificacion("TEXTO", "DESCONOCIDO", mensaje);
+			String tipo = "DESCONOCIDO";
+			
+			String jsonMensaje = crearMensajeNotificacion("TEXTO", tipo, mensaje);
 			TextMessage textMessage = session.createTextMessage(jsonMensaje);
+			tagMessage(textMessage, tipo);
+			
 			producer.send(textMessage);
 		} catch (JMSException e) {
 			log.error("💥 [JmsService] Error enviando mensaje a cola", e);
@@ -94,8 +101,7 @@ public class JmsServiceImpl implements JmsService {
 				MessageProducer producer = session.createProducer(queue)) {
 
 			TextMessage textMessage = session.createTextMessage(mensaje);
-			textMessage.setStringProperty("Tipo", tipo);
-			textMessage.setLongProperty(TIMESTAMP, System.currentTimeMillis());
+			tagMessage(textMessage, tipo);
 
 			producer.send(textMessage);
 
@@ -108,22 +114,28 @@ public class JmsServiceImpl implements JmsService {
 	}
 
 	@SneakyThrows(ServiceException.class)
-	private void enviarMensajeTopic(Topic topic, String mensaje, String tipo) {
+	private void enviarMensajeTopic(Topic topic, Serializable mensaje, String tipo) {
 		try (Connection connection = connectionFactory.createConnection();
 				Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 				MessageProducer producer = session.createProducer(topic)) {
 
-			TextMessage textMessage = session.createTextMessage(mensaje);
-			textMessage.setStringProperty("Tipo", tipo);
-			textMessage.setLongProperty(TIMESTAMP, System.currentTimeMillis());
+			Message message;
+			
+			if (mensaje instanceof String s) {
+				message = session.createTextMessage(s);
+			}
+			else {
+				message = session.createObjectMessage(mensaje);
+			}
+			tagMessage(message, tipo);
 
-			producer.send(textMessage);
+			producer.send(message);
 
-			log.infof("📢 [JmsService] Evento %s publicado a topic: %s", tipo, mensaje);
+			log.infof("📢 [JmsService] Mensaje %s publicado a topic: %s", tipo, mensaje);
 
 		} catch (JMSException e) {
-			log.error("💥 [JmsService] Error publicando evento a topic", e);
-			throw new ServiceException("Error publicando evento JMS", e);
+			log.error("💥 [JmsService] Error publicando mensaje a topic", e);
+			throw new ServiceException("Error publicando mensaje JMS", e);
 		}
 	}
 
@@ -145,21 +157,12 @@ public class JmsServiceImpl implements JmsService {
 	@Override
 	@SneakyThrows(ServiceException.class)
 	public void enviarRegistroTiempo(RegisterTimeDTO registerTimeDTO) {
-		try (Connection connection = connectionFactory.createConnection();
-				Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-				MessageProducer producer = session.createProducer(registerTimeTopic)) {
-
-			ObjectMessage objectMessage = session.createObjectMessage(RegisterTimeDTO.class);
-			objectMessage.setObject(registerTimeDTO);
-			objectMessage.setLongProperty(TIMESTAMP, System.currentTimeMillis());
-
-			producer.send(objectMessage);
-
-			log.infof("📤 [JmsService] Mensaje %s enviado a topic", registerTimeDTO.toString());
-
-		} catch (JMSException e) {
-			log.error("💥 [JmsService] Error enviando mensaje a topic", e);
-			throw new ServiceException(ERROR_JMS, e);
-		}
+		enviarMensajeTopic(registerTimeTopic, registerTimeDTO, "REGISTRO_TIEMPO");
+	}
+	
+	@SneakyThrows(JMSException.class)
+	private void tagMessage(Message message, String tipo) {
+		message.setStringProperty("Tipo", tipo);
+		message.setLongProperty(TIMESTAMP, System.currentTimeMillis());
 	}
 }
