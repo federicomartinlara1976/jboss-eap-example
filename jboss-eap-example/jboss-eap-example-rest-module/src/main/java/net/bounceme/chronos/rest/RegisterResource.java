@@ -26,7 +26,7 @@ public class RegisterResource {
 	@RolesAllowed("user")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response getUserInfo(@Context SecurityContext securityContext, RegisterTimeDTO registerTimeDTO) {
+	public Response registerTime(@Context SecurityContext securityContext, RegisterTimeDTO registerTimeDTO) {
 		String username = securityContext.getUserPrincipal().getName();
 
 		log.infof("✅ Usuario autenticado: %s", username);
