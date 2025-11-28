@@ -22,7 +22,7 @@ public class RegisterResource {
     private JmsService jmsService;
 
 	@POST
-	@RolesAllowed("user")
+	@RolesAllowed({ "user", "admin" })
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response registerTime(@Context SecurityContext securityContext, RegisterTimeDTO registerTimeDTO) {
