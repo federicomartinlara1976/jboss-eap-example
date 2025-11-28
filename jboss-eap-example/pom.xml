@@ -8,7 +8,7 @@
     
     <groupId>net.bounceme.chronos</groupId>
     <artifactId>jboss-eap-example</artifactId>
-    <version>2.3.0</version>
+    <version>2.4.0</version>
     <packaging>pom</packaging>
     
     <name>Mi Aplicación EAR - JBoss EAP 8</name>
@@ -19,11 +19,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         
         <!-- Versiones de módulos -->
-        <version.ejb>2.3.0</version.ejb>
-        <version.rest>2.3.0</version.rest>
-        <version.jsf>2.3.0</version.jsf>
-        <version.ws>2.3.0</version.ws>
-        <version.common>2.3.0</version.common>
+        <version.ejb>2.4.0</version.ejb>
+        <version.rest>2.4.0</version.rest>
+        <version.jsf>2.4.0</version.jsf>
+        <version.ws>2.4.0</version.ws>
+        <version.common>2.4.0</version.common>
         
         <!-- JBoss EAP 8 -->
         <version.jakarta.ee>10.0.0</version.jakarta.ee>
