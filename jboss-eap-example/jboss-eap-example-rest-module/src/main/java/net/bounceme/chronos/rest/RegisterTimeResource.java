@@ -16,7 +16,7 @@ import net.bounceme.chronos.service.JmsService;
 
 @Path("/secure/registerTime")
 @JBossLog
-public class RegisterResource {
+public class RegisterTimeResource {
 	
 	@Inject
     private JmsService jmsService;
