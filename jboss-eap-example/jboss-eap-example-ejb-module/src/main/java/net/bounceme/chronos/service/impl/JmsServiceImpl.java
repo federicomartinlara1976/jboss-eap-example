@@ -143,6 +143,7 @@ public class JmsServiceImpl implements JmsService {
 	}
 
 	@Override
+	@SneakyThrows(ServiceException.class)
 	public void enviarRegistroTiempo(RegisterTimeDTO registerTimeDTO) {
 		try (Connection connection = connectionFactory.createConnection();
 				Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
