@@ -57,7 +57,7 @@
     </dependencies>
     
     <build>
-    	<finalName>${project.artifactId}-${project.version}</finalName>
+    	<finalName>${project.artifactId}</finalName>
     
         <plugins>	
 	        <plugin>
@@ -65,7 +65,7 @@
 	                <artifactId>wildfly-maven-plugin</artifactId>
 	                <version>${version.wildfly.maven.plugin}</version>
 	                <configuration>
-	                	<filename>${project.artifactId}-${project.version}.${project.packaging}</filename>
+	                	<filename>${project.artifactId}.${project.packaging}</filename>
 	                    <hostname>${wildfly.hostname}</hostname>
 	                    <port>${wildfly.port}</port>
 	                    <username>${wildfly.username}</username>
