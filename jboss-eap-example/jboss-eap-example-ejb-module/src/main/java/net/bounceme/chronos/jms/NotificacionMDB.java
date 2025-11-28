@@ -1,17 +1,18 @@
 package net.bounceme.chronos.jms;
 
+import java.io.StringReader;
+import java.util.concurrent.TimeUnit;
+
 import jakarta.ejb.ActivationConfigProperty;
 import jakarta.ejb.MessageDriven;
 import jakarta.jms.JMSException;
 import jakarta.jms.Message;
 import jakarta.jms.MessageListener;
 import jakarta.jms.TextMessage;
-import lombok.extern.jbosslog.JBossLog;
-
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
-import java.io.StringReader;
+import lombok.extern.jbosslog.JBossLog;
 
 @MessageDriven(
     activationConfig = {
@@ -63,12 +64,15 @@ public class NotificacionMDB implements MessageListener {
                      tipo, destinatario, contenido);
             
             // Simular procesamiento
-            Thread.sleep(1000);
+            TimeUnit.SECONDS.sleep(1);
             
             log.infof("📬 [NotificacionMDB] Notificación enviada exitosamente a: %s", destinatario);
             
+        } catch (InterruptedException e) {
+            log.warn("💥 [NotificacionMDB] Interrupted!", e);
+            Thread.currentThread().interrupt();
         } catch (Exception e) {
-            log.error("💥 [NotificacionMDB] Error procesando JSON", e);
+        	log.error("💥 [NotificacionMDB] Error procesando JSON", e);
         }
     }
 }
