@@ -35,8 +35,7 @@ public class PedidoMDB implements MessageListener {
     @Override
     public void onMessage(Message message) {
         try {
-            if (message instanceof TextMessage) {
-                TextMessage textMessage = (TextMessage) message;
+            if (message instanceof TextMessage textMessage) {
                 String messageContent = textMessage.getText();
                 
                 log.infof("🛒 [PedidoMDB] Pedido recibido: %s", messageContent);
