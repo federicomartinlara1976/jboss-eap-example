@@ -22,7 +22,9 @@ import net.bounceme.chronos.service.JmsService;
 @JBossLog
 public class JmsServiceImpl implements JmsService {
 
-	private static final String TIMESTAMP = "timestamp";
+	private static final String ERROR_JMS = "Error enviando mensaje JMS";
+
+	private static final String TIMESTAMP = "Timestamp";
 
 	@Resource(lookup = "java:/jms/queue/NotificacionQueue")
 	private Queue notificacionQueue;
@@ -54,7 +56,7 @@ public class JmsServiceImpl implements JmsService {
 			producer.send(textMessage);
 		} catch (JMSException e) {
 			log.error("💥 [JmsService] Error enviando mensaje a cola", e);
-            throw new ServiceException("Error enviando mensaje JMS", e);
+            throw new ServiceException(ERROR_JMS, e);
 		}
 	}
 
@@ -93,7 +95,7 @@ public class JmsServiceImpl implements JmsService {
 
 			TextMessage textMessage = session.createTextMessage(mensaje);
 			textMessage.setStringProperty("Tipo", tipo);
-			textMessage.setLongProperty("Timestamp", System.currentTimeMillis());
+			textMessage.setLongProperty(TIMESTAMP, System.currentTimeMillis());
 
 			producer.send(textMessage);
 
@@ -101,7 +103,7 @@ public class JmsServiceImpl implements JmsService {
 
 		} catch (JMSException e) {
 			log.error("💥 [JmsService] Error enviando mensaje a cola", e);
-			throw new ServiceException("Error enviando mensaje JMS", e);
+			throw new ServiceException(ERROR_JMS, e);
 		}
 	}
 
@@ -113,7 +115,7 @@ public class JmsServiceImpl implements JmsService {
 
 			TextMessage textMessage = session.createTextMessage(mensaje);
 			textMessage.setStringProperty("Tipo", tipo);
-			textMessage.setLongProperty("Timestamp", System.currentTimeMillis());
+			textMessage.setLongProperty(TIMESTAMP, System.currentTimeMillis());
 
 			producer.send(textMessage);
 
@@ -148,7 +150,7 @@ public class JmsServiceImpl implements JmsService {
 
 			ObjectMessage objectMessage = session.createObjectMessage(RegisterTimeDTO.class);
 			objectMessage.setObject(registerTimeDTO);
-			objectMessage.setLongProperty("Timestamp", System.currentTimeMillis());
+			objectMessage.setLongProperty(TIMESTAMP, System.currentTimeMillis());
 
 			producer.send(objectMessage);
 
@@ -156,7 +158,7 @@ public class JmsServiceImpl implements JmsService {
 
 		} catch (JMSException e) {
 			log.error("💥 [JmsService] Error enviando mensaje a topic", e);
-			throw new ServiceException("Error enviando mensaje JMS", e);
+			throw new ServiceException(ERROR_JMS, e);
 		}
 	}
 }
