@@ -14,7 +14,7 @@ import lombok.extern.jbosslog.JBossLog;
 import net.bounceme.chronos.dto.RegisterTimeDTO;
 import net.bounceme.chronos.service.JmsService;
 
-@Path("/secure/registerTime")
+@Path("/secure")
 @JBossLog
 public class RegisterTimeResource {
 	
@@ -22,6 +22,7 @@ public class RegisterTimeResource {
     private JmsService jmsService;
 
 	@POST
+	@Path("/registerTime")
 	@RolesAllowed({ "user", "admin" })
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
