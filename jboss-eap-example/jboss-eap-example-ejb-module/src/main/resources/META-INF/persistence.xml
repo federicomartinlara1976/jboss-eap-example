@@ -35,12 +35,13 @@
 			<!-- Estadísticas -->
 			<property name="hibernate.generate_statistics" value="true" />
 			
+			<!-- Infinispan cache -->
 			<property name="hibernate.cache.use_second_level_cache" value="true"/>
 	        <property name="hibernate.cache.use_query_cache" value="true"/>
 	        <property name="hibernate.cache.region.factory_class" 
 	                  value="org.infinispan.hibernate.cache.v53.InfinispanRegionFactory"/>
-	        <property name="hibernate.cache.infinispan.cachemanager" 
-	                  value="java:jboss/infinispan/container/entities"/>
+	        <!-- <property name="hibernate.cache.infinispan.cachemanager" 
+	                  value="java:jboss/infinispan/hibernate"/> -->
 		</properties>
 	</persistence-unit>
 </persistence>
