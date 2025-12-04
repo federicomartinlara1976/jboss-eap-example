@@ -75,6 +75,22 @@
 	        <version>2.1.1</version>
 	        <scope>provided</scope>
 	    </dependency>
+	    
+	    <!-- Infinispan Core (provided by JBoss EAP) -->
+	    <dependency>
+	        <groupId>org.infinispan</groupId>
+	        <artifactId>infinispan-core</artifactId>
+	        <scope>provided</scope>
+	        <version>14.0.0.Final</version> <!-- Versión compatible con EAP 8 -->
+	    </dependency>
+	    
+	    <!-- Infinispan Commons -->
+	    <dependency>
+	        <groupId>org.infinispan</groupId>
+	        <artifactId>infinispan-commons</artifactId>
+	        <scope>provided</scope>
+	        <version>14.0.0.Final</version>
+	    </dependency>
     </dependencies>
     
     <build>
