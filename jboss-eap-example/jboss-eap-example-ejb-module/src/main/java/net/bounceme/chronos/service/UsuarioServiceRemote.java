@@ -21,6 +21,6 @@ public interface UsuarioServiceRemote {
 
 	void desactivarUsuario(Long id);
 
-	long obtenerEstadisticas();
+	Long obtenerEstadisticas();
 
 }
