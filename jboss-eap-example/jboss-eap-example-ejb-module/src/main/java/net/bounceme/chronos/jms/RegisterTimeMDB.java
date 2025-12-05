@@ -52,7 +52,7 @@ public class RegisterTimeMDB implements MessageListener {
                 procesarRegistro(messageContent);
                 
             } else {
-                log.warn("❌ [RegisterTimeMDB] Tipo de mensaje no soportado: " + msg.getClass().getName());
+                log.warnf("❌ [RegisterTimeMDB] Tipo de mensaje no soportado: %s", msg.getClass().getName());
             }
         } catch (JMSException e) {
             log.error("💥 [RegisterTimeMDB] Error procesando mensaje", e);
