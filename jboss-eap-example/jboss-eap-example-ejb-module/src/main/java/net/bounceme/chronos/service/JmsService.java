@@ -1,7 +1,9 @@
 package net.bounceme.chronos.service;
 
+import jakarta.ejb.Remote;
 import net.bounceme.chronos.dto.RegisterTimeDTO;
 
+@Remote
 public interface JmsService {
 
 	void enviarMensaje(String mensaje);
