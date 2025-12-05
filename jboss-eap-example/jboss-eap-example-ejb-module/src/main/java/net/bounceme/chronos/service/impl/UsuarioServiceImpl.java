@@ -60,7 +60,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-	public long obtenerEstadisticas() {
+	public Long obtenerEstadisticas() {
         return usuarioRepository.contarUsuariosActivos();
     }
 }
