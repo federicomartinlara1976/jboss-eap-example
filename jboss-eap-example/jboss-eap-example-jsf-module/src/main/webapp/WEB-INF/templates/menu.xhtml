@@ -9,11 +9,6 @@
 			<p:tab title="Navegación">
 				<ul class="list-group">
 					<li class="list-group-item">
-						<i class="pi pi-user"></i>
-						<h:commandLink
-							value="Mi Perfil" action="profile" inmediate="true" />
-					</li>
-					<li class="list-group-item">
 						<i class="pi pi-desktop"></i>
 						<h:commandLink
 							value="Dashboard" action="secure-dashboard" inmediate="true" />
@@ -31,12 +26,6 @@
 								action="/admin/management.xhtml?faces-redirect=true" />
 						</li>
 					</p:fragment>
-					<li class="list-group-item">
-						<i class="pi pi-power-off"></i>
-						<h:commandLink
-							value="Cerrar Sesión"
-							action="#{securityBean.logoutWithClientId}" inmediate="true" />
-					</li>
 				</ul>
 			</p:tab>
 			
