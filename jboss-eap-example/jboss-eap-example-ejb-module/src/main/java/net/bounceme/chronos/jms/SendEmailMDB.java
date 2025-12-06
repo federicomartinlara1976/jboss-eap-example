@@ -52,7 +52,7 @@ public class SendEmailMDB implements MessageListener {
                 procesarRegistro(messageContent);
                 
             } else {
-                log.warn("❌ [SendEmailMDB] Tipo de mensaje no soportado: " + msg.getClass().getName());
+                log.warnf("❌ [SendEmailMDB] Tipo de mensaje no soportado: %s", msg.getClass().getName());
             }
         } catch (JMSException e) {
             log.error("💥 [SendEmailMDB] Error procesando mensaje", e);

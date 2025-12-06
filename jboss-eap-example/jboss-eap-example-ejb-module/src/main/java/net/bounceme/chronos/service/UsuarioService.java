@@ -3,8 +3,10 @@ package net.bounceme.chronos.service;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.ejb.Remote;
 import net.bounceme.chronos.entity.Usuario;
 
+@Remote
 public interface UsuarioService {
 
 	Usuario registrarUsuario(String nombre, String email);
@@ -19,6 +21,6 @@ public interface UsuarioService {
 
 	void desactivarUsuario(Long id);
 
-	long obtenerEstadisticas();
+	Long obtenerEstadisticas();
 
 }
