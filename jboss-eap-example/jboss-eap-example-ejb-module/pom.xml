@@ -81,7 +81,7 @@
 	        <groupId>org.infinispan</groupId>
 	        <artifactId>infinispan-core</artifactId>
 	        <scope>provided</scope>
-	        <version>14.0.0.Final</version> <!-- Versión compatible con EAP 8 -->
+	        <version>15.2.4.Final</version> <!-- Versión compatible con EAP 8 -->
 	    </dependency>
 	    
 	    <!-- Infinispan Commons -->
@@ -89,7 +89,7 @@
 	        <groupId>org.infinispan</groupId>
 	        <artifactId>infinispan-commons</artifactId>
 	        <scope>provided</scope>
-	        <version>14.0.0.Final</version>
+	        <version>15.2.4.Final</version>
 	    </dependency>
     </dependencies>
     
