@@ -7,6 +7,7 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.extern.jbosslog.JBossLog;
+import net.bounceme.chronos.dto.ProductoDTO;
 import net.bounceme.chronos.entity.Producto;
 import net.bounceme.chronos.service.ProductoService;
 
@@ -14,11 +15,10 @@ import net.bounceme.chronos.service.ProductoService;
 @JBossLog
 public class ProductoServiceImpl implements ProductoService {
     
-    @PersistenceContext
+	@PersistenceContext
     private EntityManager em;
     
-    @Override
-	public Producto crearProducto(String nombre, String categoria, BigDecimal precio) {
+    public ProductoDTO crearProducto(String nombre, String categoria, BigDecimal precio) {
         Producto producto = new Producto();
         producto.setNombre(nombre);
         producto.setCategoria(categoria);
@@ -27,11 +27,10 @@ public class ProductoServiceImpl implements ProductoService {
         em.persist(producto);
         log.infof("✅ Producto creado: %s", producto);
         
-        return producto;
+        return new ProductoDTO(producto.getNombre(), producto.getCategoria(), producto.getPrecio());
     }
     
-    @Override
-	public Producto buscarProducto(Long id) {
+    public ProductoDTO buscarProducto(Long id) {
         long start = System.currentTimeMillis();
         Producto producto = em.find(Producto.class, id);
         long tiempo = System.currentTimeMillis() - start;
@@ -39,11 +38,10 @@ public class ProductoServiceImpl implements ProductoService {
         log.infof("⏱️ Buscar producto ID %d - Tiempo: %d ms (Cache: %s)", 
                  id, tiempo, em.getEntityManagerFactory().getCache().contains(Producto.class, id));
         
-        return producto;
+        return new ProductoDTO(producto.getNombre(), producto.getCategoria(), producto.getPrecio());
     }
     
-    @Override
-	public List<Producto> buscarPorCategoria(String categoria) {
+    public List<ProductoDTO> buscarPorCategoria(String categoria) {
         long start = System.currentTimeMillis();
         
         List<Producto> productos = em.createNamedQuery("Producto.findByCategoria", Producto.class)
@@ -55,11 +53,14 @@ public class ProductoServiceImpl implements ProductoService {
         log.infof("⏱️ Buscar por categoría '%s' - Tiempo: %d ms - Resultados: %d", 
                  categoria, tiempo, productos.size());
         
-        return productos;
+        return productos.stream()
+        		.map(producto -> {
+        			return new ProductoDTO(producto.getNombre(), producto.getCategoria(), producto.getPrecio());
+        		})
+        		.toList();
     }
     
-    @Override
-	public void clearCache() {
+    public void clearCache() {
         em.getEntityManagerFactory().getCache().evictAll();
         log.info("🧹 Cache de JPA limpiado");
     }
