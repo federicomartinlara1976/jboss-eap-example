@@ -44,8 +44,35 @@
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
+			<from-outcome>product-dashboard</from-outcome>
+			<to-view-id>/secure/products/dashboard.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>new-product</from-outcome>
+			<to-view-id>/secure/products/new-product.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
 			<from-outcome>list-category</from-outcome>
 			<to-view-id>/secure/products/list-category.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>clean-cache</from-outcome>
+			<to-view-id>/secure/products/clean-cache.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>

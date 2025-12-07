@@ -8,7 +8,6 @@
 	<ui:define name="content">
 		<p:outputPanel styleClass="dashboard">
 
-			<!-- Formulario de envío jms -->
 			<p:panel styleClass="ui-g-12 ui-md-12 ui-lg-12">
 				<f:facet name="header">
 					<i class="pi pi-list"></i>
@@ -16,21 +15,35 @@
                </f:facet>
 
 				<div class="ui-g ui-fluid">
-					<div class="ui-g-6 ui-md-6 ui-lg-6">
-						<p:outputLabel for="categoria" value="Categoría:" />
-						<p:inputText id="categoria" value="#{productBean.producto.categoria}"
-							placeholder="Categoria..."/>
-					</div>
+					<div class="ui-g-12 ui-md-12 ui-lg-12">
+						<h:form id="listarCategoria">
+							<h:panelGrid id="grid" columns="2" cellpadding="7">
+					            <p:inputText id="categoria" value="#{productBean.producto.categoria}"
+									placeholder="Categoria..." required="true"/>
+								<p:message for="@previous" display="text"/>
 					
-					<div class="ui-g-6 ui-md-6 ui-lg-6">
-						<p:commandButton id="crearBtn" value="Crear"
-							actionListener="#{productBean.listar}" process="@form"
-							ajax="true" icon="pi pi-list" update="messages"
-							styleClass="p-button-primary" />
+					            <p:commandButton id="crearBtn" value="Listar"
+										actionListener="#{productBean.listar}" process="@form"
+										ajax="true" icon="pi pi-list" update="grid,products"
+										styleClass="p-button-primary" />
+					        </h:panelGrid>
+						</h:form>
 					</div>
 
-					<div class="ui-g-12">
-						
+					<div class="ui-g-12 ui-md-12 ui-lg-12">
+						<p:dataTable id="products" var="product" value="#{productBean.productos}">
+				            <p:column headerText="Nombre">
+				                <h:outputText value="#{product.nombre}" />
+				            </p:column>
+				
+				            <p:column headerText="Categoría">
+				                <h:outputText value="#{product.categoria}" />
+				            </p:column>
+				
+				            <p:column headerText="Precio">
+				                <h:outputText value="#{product.precio}" />
+				            </p:column>
+				        </p:dataTable>	
 					</div>
 				</div>
 

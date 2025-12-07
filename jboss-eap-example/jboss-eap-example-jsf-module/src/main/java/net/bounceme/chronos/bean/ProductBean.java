@@ -2,6 +2,8 @@ package net.bounceme.chronos.bean;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
@@ -26,6 +28,7 @@ public class ProductBean {
 	private List<ProductoDTO> productos;
 
 	@Inject
+	@Getter
 	private ProductoService productoService;
 	
 	@PostConstruct
@@ -37,13 +40,26 @@ public class ProductBean {
 		try {
 			productoService.crearProducto(producto.getNombre(), producto.getCategoria(), producto.getPrecio());
 			JsfUtils.writeMessage(FacesMessage.SEVERITY_INFO, "Creado", "El producto se ha creado correctamente");
+			
+			producto = new ProductoDTO();
 		} catch (ServiceException e) {
 			JsfUtils.writeMessage(FacesMessage.SEVERITY_ERROR, "Error al crear", e.getMessage());	
 		}
 	}
 	
 	public void listar() {
-		productoService.buscarPorCategoria(producto.getCategoria());
+		if (StringUtils.isBlank(producto.getCategoria())) {
+			JsfUtils.writeMessage(FacesMessage.SEVERITY_ERROR, "Error al listar", "Escriba una categoría");
+			return;
+		}
+		
+		productos = productoService.buscarPorCategoria(producto.getCategoria());
+	}
+	
+	public void clearCache() {
+		productoService.clearCache();
+		
+		JsfUtils.writeMessage(FacesMessage.SEVERITY_INFO, "Limpiado", "Caché borrada correctamente");
 	}
 	
 }

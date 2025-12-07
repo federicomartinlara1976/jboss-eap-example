@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/templates/template-secure.xhtml">
+	
+	<ui:define name="content">
+		<p:outputPanel styleClass="dashboard">
+
+			<!-- Formulario de envío jms -->
+			<p:panel id="cleanCache" styleClass="ui-g-6 ui-md-6 ui-lg-6">
+				<f:facet name="header">
+					<i class="pi pi-plus"></i>
+                   Limpiar caché
+               </f:facet>
+
+				<div class="ui-g ui-fluid">
+					
+					<div class="ui-g-12">
+						<p:commandButton id="cleanBtn" value="Limpiar"
+							actionListener="#{productBean.clearCache}" process="@form"
+							ajax="true" icon="pi pi-eraser" update="messages"
+							styleClass="p-button-primary" />
+					</div>
+				</div>
+
+			</p:panel>
+			
+		</p:outputPanel>
+	</ui:define>
+</ui:composition>

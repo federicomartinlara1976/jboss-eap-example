@@ -9,7 +9,7 @@
 		<p:outputPanel styleClass="dashboard">
 
 			<!-- Formulario de envío jms -->
-			<p:panel styleClass="ui-g-6 ui-md-6 ui-lg-6">
+			<p:panel id="newProduct" styleClass="ui-g-6 ui-md-6 ui-lg-6">
 				<f:facet name="header">
 					<i class="pi pi-plus"></i>
                    Nuevo producto
@@ -30,13 +30,13 @@
 					
 					<div class="ui-g-12">
                 		<p:outputLabel for="precio" value="Precio:"/>
-                		<p:inputNumber id="precio" value="#{productBean.producto.precio}" decimalPlaces="15" />
+                		<p:inputNumber id="precio" value="#{productBean.producto.precio}" decimalPlaces="2" />
             		</div>
 					
 					<div class="ui-g-12">
 						<p:commandButton id="crearBtn" value="Crear"
 							actionListener="#{productBean.nuevo}" process="@form"
-							ajax="true" icon="pi pi-plus" update="messages"
+							ajax="true" icon="pi pi-plus" update="newProduct,messages"
 							styleClass="p-button-primary" />
 					</div>
 				</div>
