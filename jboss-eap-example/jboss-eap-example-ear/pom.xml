@@ -89,6 +89,13 @@
                             <bundleDir>lib</bundleDir>
                         </jarModule>
                         
+                        <jarModule>
+                            <groupId>javax.cache</groupId>
+		    				<artifactId>cache-api</artifactId>
+		    				<version>1.1.1</version>
+                            <bundleDir>lib</bundleDir>
+                        </jarModule>
+                        
                         <ejbModule>
                             <groupId>net.bounceme.chronos</groupId>
                             <artifactId>jboss-eap-example-ejb-module</artifactId>
