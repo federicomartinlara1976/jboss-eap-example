@@ -33,6 +33,6 @@ public class RegisterTimeResource {
 
 		jmsService.enviarRegistroTiempo(registerTimeDTO);
 
-		return Response.accepted().build();
+		return Response.accepted(registerTimeDTO).build();
 	}
 }
