@@ -19,6 +19,6 @@ public interface UsuarioService {
 
 	void desactivarUsuario(Long id);
 
-	long obtenerEstadisticas();
+	Long obtenerEstadisticas();
 
 }

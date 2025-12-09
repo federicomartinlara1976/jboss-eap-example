@@ -15,7 +15,7 @@
 	<f:view>
 		<h:form prependId="false">
 
-			<p:growl id="messages" showDetail="true" sticky="true" />
+			<p:growl id="messages" showDetail="true" sticky="false" />
 
 			<p:outputPanel id="layoutWrapper" layout="block"
 				styleClass="layout-wrapper menu-layout-static">
@@ -33,7 +33,20 @@
 					</p:outputPanel>
 
 					<p:outputPanel layout="block" styleClass="topbar-right">
-						<ui:insert name="title"></ui:insert>
+						<ul class="topbar-items">
+							<li>
+								<h:commandLink action="#{securityBean.logoutWithClientId}" immediate="true"
+									title="Salir">
+									<i class="topbar-icon pi pi-fw pi-power-off"></i>
+								</h:commandLink>
+							</li>
+							<li>
+								<h:commandLink action="profile" immediate="true"
+									title="Perfil de usuario">
+									<i class="topbar-icon pi pi-fw pi-user"></i>
+								</h:commandLink>
+							</li>
+						</ul>
 					</p:outputPanel>
 				</p:outputPanel>
 

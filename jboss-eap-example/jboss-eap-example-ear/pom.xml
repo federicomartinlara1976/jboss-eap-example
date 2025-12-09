@@ -9,7 +9,7 @@
     <parent>
         <groupId>net.bounceme.chronos</groupId>
         <artifactId>jboss-eap-example</artifactId>
-        <version>2.3.0</version>
+        <version>2.4.0</version>
     </parent>
     
     <artifactId>jboss-eap-example-ear</artifactId>
@@ -24,7 +24,7 @@
     </properties>
     
     <dependencies>
-        <!-- Dependencias de módulos -->
+		<!-- Dependencias de módulos -->
         <dependency>
             <groupId>net.bounceme.chronos</groupId>
             <artifactId>jboss-eap-example-common-module</artifactId>
@@ -57,22 +57,22 @@
     </dependencies>
     
     <build>
-    	<finalName>${project.artifactId}-${project.version}</finalName>
+    	<finalName>${project.artifactId}</finalName>
     
         <plugins>	
 	        <plugin>
-	                <groupId>org.wildfly.plugins</groupId>
-	                <artifactId>wildfly-maven-plugin</artifactId>
-	                <version>${version.wildfly.maven.plugin}</version>
-	                <configuration>
-	                	<filename>${project.artifactId}-${project.version}.${project.packaging}</filename>
-	                    <hostname>${wildfly.hostname}</hostname>
-	                    <port>${wildfly.port}</port>
-	                    <username>${wildfly.username}</username>
-	                    <password>${wildfly.password}</password>
-	                    <skip>false</skip>
-	                </configuration>
-	            </plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>${version.wildfly.maven.plugin}</version>
+                <configuration>
+                	<filename>${project.artifactId}.${project.packaging}</filename>
+                    <hostname>${wildfly.hostname}</hostname>
+                    <port>${wildfly.port}</port>
+                    <username>${wildfly.username}</username>
+                    <password>${wildfly.password}</password>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-ear-plugin</artifactId>

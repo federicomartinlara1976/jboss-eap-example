@@ -7,12 +7,14 @@
 /subsystem=messaging-activemq/server=default:write-attribute(name=persistence-enabled,value=true)
 reload
 
-# Crear Connection Factory
+# Crear Colas
 /subsystem=messaging-activemq/server=default/jms-queue=NotificacionQueue:add(entries=["java:/jms/queue/NotificacionQueue"])
 /subsystem=messaging-activemq/server=default/jms-queue=PedidoQueue:add(entries=["java:/jms/queue/PedidoQueue"])
+/subsystem=messaging-activemq/server=default/jms-queue=RegisterTimeQueue:add(entries=["java:/jms/queue/RegisterTimeQueue"])
 
 # Crear Topic para eventos en tiempo real
 /subsystem=messaging-activemq/server=default/jms-topic=EventosTopic:add(entries=["java:/jms/topic/EventosTopic"])
+/subsystem=messaging-activemq/server=default/jms-topic=RegisterTimeTopic:add(entries=["java:/jms/topic/RegisterTimeTopic"])
 
 # Verificar la configuración
 /subsystem=messaging-activemq/server=default:read-resource
@@ -59,5 +61,8 @@ reload
 # Verificar
 /subsystem=messaging-activemq/server=default:read-children-names(child-type=connector)
 /subsystem=messaging-activemq/server=default:read-children-names(child-type=acceptor)
+
+# Activar las estadísticas
+/subsystem=messaging-activemq/server=default:write-attribute(name=statistics-enabled,value=true)
 
 

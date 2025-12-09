@@ -1,0 +1,8 @@
+<infinispan>
+    <cache-container name="jcache-container" default-cache="default">
+        <local-cache name="default">
+            <memory max-count="10000"/>
+            <expiration lifespan="60000" max-idle="30000"/>
+        </local-cache>
+    </cache-container>
+</infinispan>

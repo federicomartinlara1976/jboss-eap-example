@@ -1,5 +1,7 @@
 package net.bounceme.chronos.service;
 
+import net.bounceme.chronos.dto.RegisterTimeDTO;
+
 public interface JmsService {
 
 	void enviarMensaje(String mensaje);
@@ -18,5 +20,10 @@ public interface JmsService {
 	 * Publicar evento al topic (todos los suscriptores lo reciben)
 	 */
 	void publicarEvento(String tipoEvento, String usuario, String detalles);
+	
+	/**
+	 * Registrar tiempo
+	 */
+	void enviarRegistroTiempo(RegisterTimeDTO registerTimeDTO);
 
 }

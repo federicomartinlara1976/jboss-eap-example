@@ -73,17 +73,11 @@ label, .layout-footer {
 	color: #222;
 }
 
-.layout-main {
-	margin-bottom: 200px;
-}
-
-footer {
-	position: fixed;
-    bottom: 0;
-	left: 0;
+.layout-footer {
 	width: 100%;
 	color: #bdbdbd;
 	text-align: right;
+	display: inline-block;
 }
 
 footer span {
