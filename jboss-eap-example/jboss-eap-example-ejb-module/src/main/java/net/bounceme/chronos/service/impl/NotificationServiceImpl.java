@@ -1,16 +1,14 @@
 package net.bounceme.chronos.service.impl;
 
-import jakarta.ejb.Singleton;
-import jakarta.ejb.Startup;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import jakarta.ejb.Stateless;
 import lombok.extern.jbosslog.JBossLog;
 import net.bounceme.chronos.service.NotificationService;
 import net.bounceme.chronos.websocket.NotificationWebSocket;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-@Singleton
-@Startup
+@Stateless(name = "NotificationService")
 @JBossLog
 public class NotificationServiceImpl implements NotificationService {
 
