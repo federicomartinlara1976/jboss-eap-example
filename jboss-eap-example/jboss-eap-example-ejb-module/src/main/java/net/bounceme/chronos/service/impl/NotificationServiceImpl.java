@@ -3,6 +3,7 @@ package net.bounceme.chronos.service.impl;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
 import lombok.extern.jbosslog.JBossLog;
+import net.bounceme.chronos.service.NotificationService;
 import net.bounceme.chronos.websocket.NotificationWebSocket;
 
 import java.time.LocalDateTime;
@@ -11,9 +12,10 @@ import java.time.format.DateTimeFormatter;
 @Singleton
 @Startup
 @JBossLog
-public class NotificationService {
+public class NotificationServiceImpl implements NotificationService {
 
-    public void sendNotificationToAll(String title, String message) {
+    @Override
+	public void sendNotificationToAll(String title, String message) {
         String jsonNotification = String.format(
             "{\"type\": \"notification\", \"title\": \"%s\", \"message\": \"%s\", \"timestamp\": \"%s\"}",
             title.replace("\"", "\\\""),
@@ -25,7 +27,8 @@ public class NotificationService {
         log.infof("📤 Notificación enviada a todos los clientes: %s", title);
     }
     
-    public void sendSystemNotification(String message) {
+    @Override
+	public void sendSystemNotification(String message) {
         sendNotificationToAll("Sistema", message);
     }
 }
