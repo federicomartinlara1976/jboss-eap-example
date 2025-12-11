@@ -59,12 +59,10 @@ public class NotificationWebSocket {
 
     // Método para enviar notificaciones a todos los clientes conectados
     public static void broadcast(String message) {
-        synchronized (sessions) {
-        	sessions.forEach(session -> {
-        		if (session.isOpen()) {
-                    session.getAsyncRemote().sendText(message);
-                }
-        	});
+    	synchronized (sessions) {
+            sessions.stream()
+                    .filter(Session::isOpen)
+                    .forEach(session -> session.getAsyncRemote().sendText(message));
         }
     }
     
