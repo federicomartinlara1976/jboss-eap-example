@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba de WebSockets - JBoss EAP 8</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .connected { background-color: #d4edda; color: #155724; }
+        .disconnected { background-color: #f8d7da; color: #721c24; }
+        .controls {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        input, button {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        input { flex-grow: 1; }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover { background-color: #45a049; }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .messages {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            height: 300px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+            margin-top: 20px;
+        }
+        .message {
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 4px;
+            word-wrap: break-word;
+        }
+        .incoming { background-color: #e3f2fd; border-left: 4px solid #2196F3; }
+        .outgoing { background-color: #e8f5e8; border-left: 4px solid #4CAF50; }
+        .system { background-color: #fff3cd; border-left: 4px solid #ffc107; }
+        .timestamp {
+            font-size: 0.8em;
+            color: #666;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔌 Prueba de WebSockets - JBoss EAP 8</h1>
+        
+        <div id="status" class="status disconnected">
+            ❌ Desconectado
+        </div>
+        
+        <div class="controls">
+            <button id="connectBtn" onclick="connect()">Conectar</button>
+            <button id="disconnectBtn" onclick="disconnect()" disabled>Desconectar</button>
+            <button id="clearBtn" onclick="clearMessages()">Limpiar Mensajes</button>
+            <button id="testBtn" onclick="sendTestNotification()">Enviar Notificación de Prueba</button>
+        </div>
+        
+        <div class="controls">
+            <input type="text" id="messageInput" placeholder="Escribe un mensaje..." disabled>
+            <button id="sendBtn" onclick="sendMessage()" disabled>Enviar</button>
+        </div>
+        
+        <div class="controls">
+            <input type="text" id="notificationTitle" placeholder="Título de notificación..." value="Notificación del Servidor">
+            <input type="text" id="notificationMessage" placeholder="Mensaje de notificación..." value="¡Hola desde el servidor!">
+            <button onclick="sendServerNotification()">Enviar Notificación vía REST</button>
+        </div>
+        
+        <div id="messages" class="messages">
+            <!-- Los mensajes aparecerán aquí -->
+        </div>
+        
+        <div style="margin-top: 20px; font-size: 0.9em; color: #666;">
+            <p><strong>Instrucciones:</strong></p>
+            <ol>
+                <li>Haz clic en "Conectar" para establecer la conexión WebSocket</li>
+                <li>Envía mensajes usando el campo de texto</li>
+                <li>Prueba las notificaciones push desde el servidor</li>
+                <li>Puedes enviar notificaciones vía REST (serán enviadas a todos los clientes conectados)</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        let socket = null;
+        const baseUrl = window.location.origin + '/mi-jsf'; // Ajusta según tu contexto
+        
+        function updateUI() {
+            const isConnected = socket && socket.readyState === WebSocket.OPEN;
+            document.getElementById('connectBtn').disabled = isConnected;
+            document.getElementById('disconnectBtn').disabled = !isConnected;
+            document.getElementById('sendBtn').disabled = !isConnected;
+            document.getElementById('messageInput').disabled = !isConnected;
+            document.getElementById('testBtn').disabled = !isConnected;
+            
+            const statusDiv = document.getElementById('status');
+            if (isConnected) {
+                statusDiv.textContent = '✅ Conectado al servidor WebSocket';
+                statusDiv.className = 'status connected';
+            } else {
+                statusDiv.textContent = '❌ Desconectado';
+                statusDiv.className = 'status disconnected';
+            }
+        }
+        
+        function connect() {
+            // Construir la URL del WebSocket
+            const wsUrl = `ws://${window.location.host}${baseUrl}/websocket/notifications`;
+            socket = new WebSocket(wsUrl);
+            
+            socket.onopen = function(event) {
+                addMessage('system', 'Conexión establecida con el servidor');
+                updateUI();
+            };
+            
+            socket.onclose = function(event) {
+                addMessage('system', `Conexión cerrada: ${event.code} - ${event.reason}`);
+                updateUI();
+            };
+            
+            socket.onerror = function(error) {
+                addMessage('system', `Error de conexión: ${error.message}`);
+                updateUI();
+            };
+            
+            socket.onmessage = function(event) {
+                try {
+                    const data = JSON.parse(event.data);
+                    addMessage('incoming', JSON.stringify(data, null, 2));
+                } catch (e) {
+                    addMessage('incoming', event.data);
+                }
+            };
+        }
+        
+        function disconnect() {
+            if (socket) {
+                socket.close();
+                socket = null;
+            }
+            updateUI();
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (message && socket && socket.readyState === WebSocket.OPEN) {
+                socket.send(message);
+                addMessage('outgoing', message);
+                input.value = '';
+                input.focus();
+            }
+        }
+        
+        function sendTestNotification() {
+            if (socket && socket.readyState === WebSocket.OPEN) {
+                const testMessage = JSON.stringify({
+                    type: 'test',
+                    message: 'Mensaje de prueba desde el cliente',
+                    timestamp: new Date().toISOString()
+                });
+                socket.send(testMessage);
+                addMessage('outgoing', testMessage);
+            }
+        }
+        
+        function sendServerNotification() {
+            const title = document.getElementById('notificationTitle').value;
+            const message = document.getElementById('notificationMessage').value;
+            
+            fetch(`${baseUrl}/rest/notifications/send?title=${encodeURIComponent(title)}&message=${encodeURIComponent(message)}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                addMessage('system', `Notificación enviada vía REST: ${JSON.stringify(data)}`);
+            })
+            .catch(error => {
+                addMessage('system', `Error al enviar notificación: ${error}`);
+            });
+        }
+        
+        function addMessage(type, text) {
+            const messagesDiv = document.getElementById('messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            
+            const timestamp = new Date().toLocaleTimeString();
+            messageDiv.innerHTML = `<span class="timestamp">${timestamp}</span> ${text}`;
+            
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+        
+        function clearMessages() {
+            document.getElementById('messages').innerHTML = '';
+        }
+        
+        // Permitir enviar mensaje con Enter
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Inicializar UI
+        updateUI();
+    </script>
+</body>
+</html>
